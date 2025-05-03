@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const handleClick = () => {
+    alert("¡Botón clickeado!");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* Enlace real */}
+      <a href="#contacto" onClick={() => console.log("Enlace clickeado")}>
+        Contacto
+      </a>
+
+      {/* Botón estilizado como enlace */}
+      <button 
+        onClick={handleClick}
+        style={{
+          background: "none",
+          border: "none",
+          color: "blue",
+          textDecoration: "underline",
+          cursor: "pointer",
+        }}
+      >
+        Haz clic
+      </button>
     </div>
   );
 }
+
 
 export default App;

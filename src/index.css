@@ -1,4 +1,5 @@
 body {
+  background-color: black;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -11,3 +12,68 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* barra de navegacion inicio */
+.navbar {
+  background-color: #fff; /* Color de fondo */
+  overflow: hidden;      /* Asegura que los elementos flotados no salgan */
+  padding: 10px 0;       /* Espaciado interno */
+  align-items: center;
+  gap: 15px
+}
+
+.navbar a1 {
+  font: Poppins;
+  float: left; 
+  color: #1E46E6;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 30px;
+  font-weight: bold; /* Texto en negrita */
+}
+
+.navbar a2 {
+  font: Poppins;
+  float: right; 
+  color: #1E46E6;
+  text-align: center;
+  padding: 20px 100px;
+  font-size: 20;
+}
+
+.navbar button1 {
+  font-family: "Poppins", sans-serif; /* Corrige "font: Poppins" */
+  float: right;
+  color: #000;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 60px; /* Altura fija para consistencia */
+  font-size: 20px; /* Agrega "px" */
+  font-weight: bold;
+  display: inline-flex; /* Para alinear texto verticalmente */
+  align-items: center; /* Centra el texto verticalmente */
+}
+
+.navbar a, .navbar button {
+  float: left;           /* Alinea los elementos horizontalmente */
+  color: #1E46E6;          /* Color del texto */
+  text-align: center;     /* Centra el texto */
+  padding: 20px 16px;    /* Espaciado interno (ajustable) */
+  text-decoration: none; /* Quita el subrayado de los enlaces */
+  font-size: 20px;       /* Tamaño del texto */
+  margin: 0 5px;         /* Margen entre elementos */
+  font-weight: regular
+}
+
+.navbar a:hover, .navbar button:hover {
+  background-color: #ddd; /* Color al pasar el mouse */
+  color: black;          /* Cambia el color del texto */
+}
+
+/* Estilo adicional para botones */
+.navbar button, .navbar button1 {
+  background-color: #ECF412; /* Color verde para botones */
+  border: none;             /* Sin bordes */
+  cursor: pointer;          /* Cambia el cursor a "mano" */
+  border-radius: 12px;
+}
+/* barra de navegacion final */
