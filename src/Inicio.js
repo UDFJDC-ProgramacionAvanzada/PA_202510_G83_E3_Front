@@ -1,28 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './Inicio.css';
 
 function App() {
+
+  const handleClick = () => {
+    alert("¡Botón clickeado!");
+  };
+
   return (
-    <body>
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-    </body>
+      <div className="navbar">
+        <a className="Nombre">MercaU</a>
+        <a className="Inicio" href="#Inicio" onClick={() => console.log("Enlace clickeado")}>Inicio</a>
+        <a className="Vender" href="#Vender">Vender</a>
+        <a className="Comprar"href="#Comprar">Comprar</a>
+
+        <button className="login-btn" onClick={() => window.location.href='https://youtube.com/a/chat/s/62cfa149-33d0-4bcc-879c-d689d0ff6910'}>
+        Iniciar Sesión
+        </button>
+        <a className="profile-link" href="#MiPerfil">Mi Perfil</a>
+
+      </div>
   );
 }
+App();
 
 export default App;
