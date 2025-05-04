@@ -1,0 +1,46 @@
+.hu13-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0033cc; /* Azul */
+    color: white;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.left-content {
+    max-width: 50%;
+}
+
+.titulo_de_aviso {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    margin-right: 150px;
+    font-family: poppins, sans-serif;
+    text-align: center;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #3819d7;
+    margin-left: 220px;
+}
+
+.imagen_amigos {
+    width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(15, 8, 156, 0.2);
+}
+
+.search-input::placeholder {
+    color: #0033cc; 
+    opacity: 1;  
+}

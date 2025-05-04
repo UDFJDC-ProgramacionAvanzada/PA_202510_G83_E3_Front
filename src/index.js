@@ -4,11 +4,13 @@ import './index.css';
 import Inicio from './Inicio';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import HU13 from './components/HU13';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Inicio />
+    <HU13/>
   </React.StrictMode>
 );
 
