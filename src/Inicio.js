@@ -1,5 +1,6 @@
 import React from 'react';
 import './Inicio.css';
+import HU13 from './components/HU13.js';
 
 function App() {
 
@@ -8,6 +9,7 @@ function App() {
   };
 
   return (
+    <body>
       <div className="navbar">
         <a className="Nombre">MercaU</a>
         <a className="Inicio" href="#Inicio" onClick={() => console.log("Enlace clickeado")}>Inicio</a>
@@ -18,8 +20,11 @@ function App() {
         Iniciar Sesión
         </button>
         <a className="profile-link" href="#MiPerfil">Mi Perfil</a>
-
       </div>
+      <div className="hu13-container">
+      <HU13 />
+      </div>
+    </body>
   );
 }
 App();
