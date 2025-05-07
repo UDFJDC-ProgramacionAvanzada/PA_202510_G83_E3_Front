@@ -1,12 +1,9 @@
 import React from 'react';
 import './Inicio.css';
 import HU13 from './components/HU13.js';
+import Mapa from './components/Mapa.js' 
 
 function App() {
-
-  const handleClick = () => {
-    alert("¡Botón clickeado!");
-  };
 
   return (
     <body>
@@ -23,10 +20,14 @@ function App() {
       </div>
       <div className="hu13-container">
       <HU13 />
+      </div>    
+      <div className="mapa-container">
+        <Mapa/>
       </div>
+
     </body>
   );
 }
-App();
+
 
 export default App;

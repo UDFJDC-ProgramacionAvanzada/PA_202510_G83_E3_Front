@@ -1,0 +1,61 @@
+.mapa_maps {
+    display: flex;
+    justify-content: flex-end; 
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+}
+
+.mapa_contenido {
+    max-width: 800px;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    border: #0033cc 5px solid;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.titulo_de_maps {
+    font-family: poppins, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #0033cc;
+}
+
+.mapa_bogota {
+    width: 90%;
+    height: 350px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    margin-top: 10px;
+}
+
+.mapa_bogota:hover {
+    transform: scale(1.03);
+}
+
+.texto_descrip_mapa {
+    font-family: poppins, sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Esta parte hara que si hay una pantalla pequeña o se ve desde mobile se vea el mapa centrado */
+@media (max-width: 768px) {
+    .mapa_maps {
+        justify-content: center;
+    }
+
+    .mapa_contenido {
+        padding: 10px;
+    }
+
+    .mapa_bogota {
+        height: 300px;
+    }
+}
