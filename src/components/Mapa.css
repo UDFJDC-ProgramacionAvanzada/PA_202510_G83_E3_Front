@@ -46,7 +46,7 @@
 }
 
 /* Esta parte hara que si hay una pantalla pequeña o se ve desde mobile se vea el mapa centrado */
-@media (max-width: 768px) {
+@media (max-width: 768px) { 
     .mapa_maps {
         justify-content: center;
     }

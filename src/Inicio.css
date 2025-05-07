@@ -1,4 +1,4 @@
-.navbar, .profile-link, .login-btn, .Nombre, .Inicio, .Vender, .Comprar {
+.navbar{
   background-color: #fff; /* Color de fondo */
   overflow: hidden;      /* Asegura que los elementos flotados no salgan */
   padding: 10px 0;       /* Espaciado interno */
@@ -40,24 +40,23 @@
   align-items: center; /* Centra el texto verticalmente */
 }
 
-.Inicio, .Vender, .Comprar{
+.Inicio{
   float: left;           /* Alinea los elementos horizontalmente */
   color: #1E46E6;          /* Color del texto */
   text-align: center;     /* Centra el texto */
   padding: 20px 16px;    /* Espaciado interno (ajustable) */
   text-decoration: none; /* Quita el subrayado de los enlaces */
   font-size: 20px;       /* Tamaño del texto */     /* Margen entre elementos */
-  font-weight: regular
 }
 
-.profile-link:hover ,.Inicio:hover, .Vender:hover, .Comprar:hover{
+.profile-link:hover ,.Inicio:hover{
   color: rgb(65, 10, 78);          /* Cambia el color del texto */
   text-decoration: underline;
 }
 
 /* Estilo adicional para botones */
 .navbar button, .login-btn button {
-  background-color: #ECF412; /* Color verde para botones */          /* Sin bordes */
+  background-color: #ECF412; 
   cursor: pointer;          /* Cambia el cursor a "mano" */
   border-radius: 12px;
   border: none;
