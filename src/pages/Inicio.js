@@ -1,10 +1,10 @@
 import React from 'react';
 import './Inicio.css';
-import HU13 from './components/HU13.js';
-import Mapa from './components/Mapa.js' 
-import Navbar from './components/Navbardef.js';
+import HU13 from '../components/HU13.js';
+import Mapa from '../components/Mapa.js' 
+import Navbar from '../components/Navbardef.js';
 
-function App() {
+function Inicio() {
   return (
     <body>
       <div className="navbar">
@@ -20,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export default Inicio;

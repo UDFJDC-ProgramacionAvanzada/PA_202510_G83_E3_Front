@@ -1,11 +1,11 @@
 import React from 'react';
 import {useState} from 'react';
 import './Navbar.css';
-
+import { Link } from 'react-router-dom';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
-
+    
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
@@ -23,7 +23,9 @@ function Navbar() {
     <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
         <a className="nav-item profile-link" href="#MiPerfil">Mi Perfil</a>
         <a className="nav-item" href="#Inicio" onClick={() => console.log("Enlace clickeado")}>Inicio</a>
-        <a className="nav-item" href="#Vender">Vender</a>
+
+        <Link to="/vender" className="nav-item" >Vender</Link>
+
         <a className="nav-item" href="#Comprar">Comprar</a>
         <button className="nav-item login-btn" onClick={() => window.location.href='https://youtube.com/a/chat/s/62cfa149-33d0-4bcc-879c-d689d0ff6910'}>
         Iniciar Sesión
