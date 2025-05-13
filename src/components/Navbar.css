@@ -1,0 +1,93 @@
+.navbar {
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.Nombre {
+    cursor: default;
+    font-family: "Poppins", sans-serif;
+    color: #1E46E6;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0px 10px 0px 0px;
+}
+
+  /* Estilos del menú hamburguesa (solo visible en móvil) */
+.hamburger {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: #1E46E6;
+}
+
+  /* Estilos para cada elemento del menú */
+.nav-item {
+        color: #1E46E6;
+        text-align: center;
+        padding: 10px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        font-family: "Poppins", sans-serif;
+}
+
+.login-btn {
+    font-family: "Poppins", sans-serif;
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #ECF412;
+    cursor: pointer;
+    border-radius: 12px;
+    border: none;
+}
+
+.nav-item:hover {
+    color: rgb(65, 10, 78);
+    text-decoration: underline;
+}
+
+  /* Media queries para diseño responsive */
+@media (max-width: 768px) {
+    .hamburger {
+    display: block;
+    }
+    
+    .left-section, .right-section {
+    width: 100%;
+    }
+    
+    .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+    }
+    
+    .right-section {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 10px;
+    }
+    
+    .nav-links.active, .right-section.active {
+    display: flex;
+    }
+    
+    .nav-item, .profile-link, .login-btn {
+    width: 100%;
+    text-align: left;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    }
+    
+    .login-btn {
+    margin-top: 10px;
+    }
+}
