@@ -10,6 +10,8 @@ function Vender() {
                 <button className='register-button'>Registrate</button>
             </div>
         </div>
+        
+        <div></div>
     )
 }
 
