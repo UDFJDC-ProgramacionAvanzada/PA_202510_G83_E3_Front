@@ -1,0 +1,62 @@
+.vender-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 30px;
+    background-color: #0033cc;
+    flex-wrap: wrap;
+}
+
+
+.texto-vender {
+    font-size: 2.5rem;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+.register {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    border-radius: 13px;
+    padding: 10px 40px;
+
+}
+
+
+.register-text {
+    font-size: 1rem;
+    color: #0033cc;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+    padding-right: 20px;
+}
+
+
+.register-button {
+    background-color: #f4f400; /* Amarillo */
+    border: none;
+    padding: 8px 23px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+@media (max-width: 600px) {
+    .vender-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .register {
+        align-self: flex-end;
+    }
+}
