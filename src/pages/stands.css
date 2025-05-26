@@ -1,0 +1,73 @@
+.stands-container {
+    font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+    background-color: #1E46E6;
+    padding: 0px 25px;
+    font-size: 25px;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    color: #fff;
+}
+
+.main-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.left-section {
+    width: 30%;
+    display: flex;
+    flex-direction: column;  /* Coloca elementos uno debajo del otro */
+    gap: 20px;
+    box-sizing: border-box;
+    padding :10px 5% 10px 2%;
+}
+
+.subtilte-container {
+    align-items: center;
+}
+
+.subtitle {
+    background-color: #ECF412;
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 20px 0px 20px 5%;
+}
+
+.input-group{
+    align-items: center;
+}
+
+.input-text {
+    font-size: 23px;
+}
+
+.input {
+    padding: 1em;
+    max-width: 400px;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    background-color: #f0ecec;
+    box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+    transition: 300ms ease-in-out;
+}
+
+.input:focus {
+    background-color: rgb(223, 219, 219);
+    transform: scale(1.05);
+    box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
+}
+
+.right-section {
+    width: 70%;
+    display: flex;
+    flex-direction: column;  /* También en columna */
+    gap: 20px;
+    box-sizing: border-box;
+}

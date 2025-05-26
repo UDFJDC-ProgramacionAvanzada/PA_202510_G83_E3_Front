@@ -8,7 +8,7 @@ function Vender() {
             <div className='register'>
                 <span className='register-text'>Eres nuevo?</span>
                 <button className='register-button'>Registrate</button>
-            </div>
+            </div>  
         </div>
     )
 }
