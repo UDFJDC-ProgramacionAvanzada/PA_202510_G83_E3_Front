@@ -7,7 +7,7 @@ import Navbar from '../components/Navbardef.js';
 function Inicio() {
   return (
     <body>
-      <div className="navbar">
+      <div>
         <Navbar/>
       </div>
       <div className="hu13-container">

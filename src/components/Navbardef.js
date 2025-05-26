@@ -11,7 +11,7 @@ function Navbar() {
     };
 
     return (
-<div className="navbar">
+<div className="navbar1">
     
     <a className="Nombre" href="http://localhost:3000">MercaU</a>
     {/* Menú Hamburguesa (solo visible en móvil) */}
