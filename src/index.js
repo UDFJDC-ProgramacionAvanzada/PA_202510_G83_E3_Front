@@ -11,7 +11,7 @@ import StandsFunc from './pages/stands';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <StandsFunc/>
+    <App/>
   </BrowserRouter>
 );
 
