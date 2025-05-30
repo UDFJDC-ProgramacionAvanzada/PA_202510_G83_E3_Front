@@ -1,4 +1,6 @@
 import './Vender.css';
+import { FormattedMessage } from 'react-intl';
+import "../localizacion/EN.json";
 
 function Vender() {
     return(
@@ -6,20 +8,20 @@ function Vender() {
 
         <header>
             <div className="vender-container">
-                <h1 className='texto-vender'>VENDER</h1>
+                <h1 className='texto-vender'><FormattedMessage id='VENDER'/></h1>
                 <div className='register'>
-                    <span className='register-text'>Eres nuevo?</span>
-                    <button className='register-button'>Registrate</button>
+                    <span className='register-text'><FormattedMessage id='Eres_nuevo?'/></span>
+                    <button className='register-button'><FormattedMessage id='Registrate'/></button>
                 </div>
             </div>
         </header>
 
         <div className='profile-container'>
             <div className='secciones'>
-                <button className='stands'> Stands </button>
-                <button className='productos'> Productos que ya se estan vendiendo </button>
-                <button className='publicar'> Publicar nuevo emprendimiento</button>
-                <button className='universidades'> Universidad </button>
+                <button className='stands'><FormattedMessage id='Stand'/></button>
+                <button className='productos'><FormattedMessage id='Productos_que_ya_se_estan_vendiendo'/></button>
+                <button className='publicar'><FormattedMessage id='Publicar_nuevo_emprendimiento'/></button>
+                <button className='universidades'><FormattedMessage id='Universidad'/></button>
             </div>
 
             <div className='login-container'>
@@ -31,9 +33,6 @@ function Vender() {
 
                 </form>
             </div>
-
-
-
         </div>
 
         </>
