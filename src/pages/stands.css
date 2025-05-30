@@ -28,15 +28,56 @@
     padding :10px 5% 10px 2%;
 }
 
-.subtilte-container {
+.subtitle-container {
+    position: relative;
     align-items: center;
+    padding: 0px;
+    margin: 0px;
 }
 
 .subtitle {
-    background-color: #ECF412;
+    width: 100%;
+    background-color: #FFC814;
     border-radius: 6px;
     font-weight: bold;
-    padding: 20px 0px 20px 5%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    transition: background-color 0.2s ease-in-out;
+}
+
+.subtitle:hover {
+    background-color: #e6b515;
+}
+
+.dropdown-menu{
+    position: absolute;
+    top: 100%; /* Equivalente a top-full */
+    left: 0;
+    right: 0;
+    margin-top: 0.5rem; /* mt-2 → 0.5rem (8px) */
+    background-color: #fff; /* bg-white */
+    border: 1px solid #e5e7eb; /* border-gray-200 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    z-index: 10;
+    
+}
+
+.dropdown-option {
+    width: 100%;
+    border: 1px solid #0000008c;
+    text-align: left;
+    padding: 0.5rem 1rem; /* py-2 → 0.5rem (8px), px-4 → 1rem (16px) */
+    transition: background-color 150ms ease-in-out;
+    background-color: #ffc8148c;
+}
+
+.dropdown-option:hover {
+    background-color: #f3f4f6; /* hover:bg-gray-100 */
 }
 
 .input-group{
