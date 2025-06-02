@@ -1,6 +1,7 @@
 import './Vender.css';
 import { FormattedMessage } from 'react-intl';
 import "../localizacion/EN.json";
+import { Link } from 'react-router-dom';
 
 function Vender() {
     return(
@@ -18,7 +19,7 @@ function Vender() {
 
         <div className='profile-container'>
             <div className='secciones'>
-                <button className='stands'><FormattedMessage id='Stand'/></button>
+                <Link to="/stands" className='stands'><FormattedMessage id='Stand'/></Link>
                 <button className='productos'><FormattedMessage id='Productos_que_ya_se_estan_vendiendo'/></button>
                 <button className='publicar'><FormattedMessage id='Publicar_nuevo_emprendimiento'/></button>
                 <button className='universidades'><FormattedMessage id='Universidad'/></button>
@@ -34,6 +35,10 @@ function Vender() {
                 </form>
             </div>
         </div>
+        
+        <footer className='footer-stands'>
+            <Link to="/" className="btn-regresar">&#8592;</Link>
+        </footer>
 
         </>
 

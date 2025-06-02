@@ -1,102 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .stands-container {
     font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar {
-    background-color: #1E46E6;
-    padding: 0px 25px;
-    font-size: 25px;
+    background-color: #3A5BA0;
+    padding: 15px 25px;
+    font-size: clamp(18px, 4vw, 25px); /* Responsive font size */
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     color: #fff;
+    flex-shrink: 0;
+    min-height: 60px;
 }
 
 .main-content {
     display: flex;
     width: 100%;
-    height: 100%;
+    flex: 1;
     box-sizing: border-box;
+    overflow: hidden;
+    flex-direction: row; /* Por defecto horizontal */
 }
 
 .left-section {
     width: 30%;
+    height: 100%;
     display: flex;
-    flex-direction: column;  /* Coloca elementos uno debajo del otro */
-    gap: 20px;
+    flex-direction: column;
+    gap: clamp(10px, 2vw, 20px);
     box-sizing: border-box;
-    padding :10px 5% 10px 2%;
+    padding: clamp(5px, 2vw, 10px) clamp(2%, 3vw, 5%) clamp(5px, 2vw, 10px) clamp(1%, 2vw, 2%);
+    overflow-y: auto;
 }
 
 .subtitle-container {
     position: relative;
     align-items: center;
-    padding: 0px;
+    padding: clamp(20px, 5vw, 44px) 0px clamp(10px, 3vw, 20px) 0px;
     margin: 0px;
 }
 
 .subtitle {
     width: 100%;
-    background-color: #FFC814;
+    min-height: clamp(50px, 8vw, 77px);
+    background-color: #FF6B35;
     border-radius: 6px;
     font-weight: bold;
-    padding: 0.5rem 1rem;
+    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between; 
     transition: background-color 0.2s ease-in-out;
+    font-size: clamp(12px, 2.5vw, 16px);
+    border: none;
+    cursor: pointer;
 }
 
 .subtitle:hover {
-    background-color: #e6b515;
+    background-color: rgba(255, 106, 0, 0.774);
+    transform: scale(1.03);
+    transition: transform 0.2s ease;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     position: absolute;
-    top: 100%; /* Equivalente a top-full */
+    top: 100%;
     left: 0;
     right: 0;
-    margin-top: 0.5rem; /* mt-2 → 0.5rem (8px) */
-    background-color: #fff; /* bg-white */
-    border: 1px solid #e5e7eb; /* border-gray-200 */
-    border-radius: 0.5rem; /* rounded-lg */
+    margin-top: 0.5rem;
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
     z-index: 10;
-    
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .dropdown-option {
     width: 100%;
     border: 1px solid #0000008c;
     text-align: left;
-    padding: 0.5rem 1rem; /* py-2 → 0.5rem (8px), px-4 → 1rem (16px) */
+    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
     transition: background-color 150ms ease-in-out;
-    background-color: #ffc8148c;
+    background-color: #FF6B358c;
+    font-size: clamp(10px, 2vw, 14px);
+    border: none;
+    cursor: pointer;
 }
 
 .dropdown-option:hover {
-    background-color: #f3f4f6; /* hover:bg-gray-100 */
+    background-color: #f3f4f6;
 }
 
-.input-group{
+.input-group {
     align-items: center;
+    padding: 0px 0px clamp(10px, 3vw, 20px) 0px;
 }
 
 .input-text {
-    font-size: 23px;
+    font-size: clamp(16px, 3vw, 23px);
+    margin-bottom: clamp(5px, 1vw, 10px);
+    display: block;
 }
 
 .input {
-    padding: 1em;
-    max-width: 400px;
+    padding: clamp(0.5em, 2vw, 1em);
+    width: 100%;
+    max-width: 100%;
     border: none;
     outline: none;
     border-radius: 6px;
     background-color: #f0ecec;
     box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
     transition: 300ms ease-in-out;
+    font-size: clamp(12px, 2vw, 16px);
 }
 
 .input:focus {
@@ -107,8 +144,321 @@
 
 .right-section {
     width: 70%;
+    height: 100%;
     display: flex;
-    flex-direction: column;  /* También en columna */
-    gap: 20px;
+    flex-direction: column;
+    gap: clamp(10px, 2vw, 20px);
     box-sizing: border-box;
+    padding: clamp(5px, 2vw, 10px) clamp(1%, 2vw, 2%) clamp(5px, 2vw, 10px) clamp(2%, 3vw, 5%);
+    position: relative;
+    overflow-y: auto;
+}
+
+.right-section h2 {
+    font-size: clamp(16px, 3vw, 24px);
+    margin-bottom: clamp(10px, 2vw, 15px);
+    text-align: center;
+}
+
+.ver-perfil {
+    width: clamp(120px, 20vw, 148px);
+    height: clamp(35px, 6vw, 45px);
+    background-color: #3A5BA0;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(12px, 2.5vw, 16px);
+    cursor: pointer;
+    border: none;
+}
+
+.recomendaciones {
+    width: 100%;
+    min-height: clamp(60px, 10vw, 77px);
+    padding: clamp(5px, 2vw, 10px);
+    background-color: #FF6B35;
+    border: none;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.recomendaciones-title {
+    font-size: clamp(16px, 3vw, 24px);
+    margin-bottom: clamp(5px, 1vw, 10px);
+}
+
+.recomendaciones-perfil {
+    padding: clamp(15px, 4vw, 30px) 0px 0px 0px;
+}
+
+.recomendaciones-description {
+    font-size: clamp(10px, 2vw, 13px);
+}
+
+.btn-regresar {
+    width: clamp(45px, 8vw, 55px);
+    height: clamp(45px, 8vw, 55px);
+    background-color: #DDDED9;
+    color: black;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(24px, 4vw, 31px);
+    cursor: pointer;
+    border: none;
+}
+
+.footer-stands {
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    padding: clamp(10px, 2vw, 20px);
+    flex-shrink: 0;
+}
+
+/* Estilos para el mapa */
+@import "leaflet/dist/leaflet.css";
+
+#mapa-stands {
+    height: clamp(300px, 50vh, 500px);
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.leaflet-container {
+    border-radius: 8px;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 8px;
+}
+
+.leaflet-popup-content {
+    margin: 15px;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVE */
+
+/* Tablets (768px y menos) */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column; /* Cambiar a columna en tablets */
+        overflow-y: auto;
+    }
+    
+    .left-section {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        padding: 15px;
+        order: 1;
+    }
+    
+    .right-section {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        order: 2;
+    }
+    
+    #mapa-stands {
+        height: clamp(250px, 40vh, 400px);
+    }
+    
+    .navbar {
+        padding: 10px 15px;
+        text-align: center;
+    }
+    
+    .subtitle-container {
+        padding: 20px 0px 15px 0px;
+    }
+    
+    .input-group {
+        padding: 0px 0px 15px 0px;
+    }
+    
+    .recomendaciones-perfil {
+        padding: 20px 0px 0px 0px;
+    }
+}
+
+/* Móviles (480px y menos) */
+@media (max-width: 480px) {
+    .stands-container {
+        width: 100vw;
+    }
+    
+    .navbar {
+        padding: 8px 10px;
+        font-size: 18px;
+        min-height: 50px;
+    }
+    
+    .left-section, .right-section {
+        padding: 10px;
+        gap: 15px;
+    }
+    
+    .subtitle {
+        min-height: 50px;
+        font-size: 14px;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .input-text {
+        font-size: 16px;
+    }
+    
+    .input {
+        padding: 0.7em;
+        font-size: 14px;
+    }
+    
+    .ver-perfil {
+        width: 100%;
+        max-width: 200px;
+        height: 40px;
+        font-size: 14px;
+    }
+    
+    .recomendaciones {
+        min-height: 60px;
+        padding: 8px;
+    }
+    
+    .recomendaciones-title {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+    
+    .recomendaciones-description {
+        font-size: 11px;
+    }
+    
+    #mapa-stands {
+        height: 300px;
+        margin-top: 10px;
+    }
+    
+    .btn-regresar {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    
+    .footer-stands {
+        padding: 15px;
+    }
+    
+    .right-section h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    
+    /* Ajustes para los dropdowns en móvil */
+    .dropdown-menu {
+        max-height: 150px;
+    }
+    
+    .dropdown-option {
+        padding: 0.4rem 0.8rem;
+        font-size: 12px;
+    }
+}
+
+/* Móviles muy pequeños (320px y menos) */
+@media (max-width: 320px) {
+    .navbar {
+        font-size: 16px;
+        padding: 6px 8px;
+    }
+    
+    .left-section, .right-section {
+        padding: 8px;
+    }
+    
+    .input {
+        padding: 0.6em;
+        font-size: 13px;
+    }
+    
+    .ver-perfil {
+        height: 35px;
+        font-size: 12px;
+    }
+    
+    #mapa-stands {
+        height: 250px;
+    }
+    
+    .btn-regresar {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .recomendaciones-title {
+        font-size: 16px;
+    }
+    
+    .right-section h2 {
+        font-size: 16px;
+    }
+}
+
+/* Pantallas grandes (1200px y más) */
+@media (min-width: 1200px) {
+    .left-section {
+        padding: 15px 5% 15px 3%;
+    }
+    
+    .right-section {
+        padding: 15px 3% 15px 5%;
+    }
+    
+    #mapa-stands {
+        height: 600px;
+    }
+}
+
+/* Landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+    .main-content {
+        flex-direction: row;
+    }
+    
+    .left-section {
+        width: 35%;
+        height: 100%;
+        overflow-y: auto;
+    }
+    
+    .right-section {
+        width: 65%;
+        height: 100%;
+    }
+    
+    #mapa-stands {
+        height: calc(100vh - 120px);
+    }
+    
+    .subtitle-container {
+        padding: 10px 0px 10px 0px;
+    }
+    
+    .input-group {
+        padding: 0px 0px 10px 0px;
+    }
+    
+    .recomendaciones-perfil {
+        padding: 15px 0px 0px 0px;
+    }
 }

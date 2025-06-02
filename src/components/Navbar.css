@@ -10,7 +10,7 @@
 .Nombre {
     cursor: default;
     font-family: "Poppins", sans-serif;
-    color: #1E46E6;
+    color: #3A5BA0;
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
@@ -22,12 +22,12 @@
     display: none;
     font-size: 30px;
     cursor: pointer;
-    color: #1E46E6;
+    color: #3A5BA0;
 }
 
   /* Estilos para cada elemento del menú */
 .nav-item {
-        color: #1E46E6;
+        color: #3A5BA0;
         text-align: center;
         padding: 10px 16px;
         text-decoration: none;
@@ -40,7 +40,7 @@
     color: #000;
     font-size: 20px;
     font-weight: bold;
-    background-color: #ECF412;
+    background-color: #FF6B35;
     cursor: pointer;
     border-radius: 12px;
     border: none;

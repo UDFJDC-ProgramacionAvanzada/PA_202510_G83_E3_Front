@@ -4,6 +4,7 @@ import Inicio from './pages/Inicio';
 import Vender from './pages/Vender';
 import { IntlProvider } from 'react-intl';
 import detectLanguage from './localizacion/detectarlenguaje';
+import Stands from './pages/stands';
 
 function App() {
     const { locale, messages } = detectLanguage();
@@ -13,9 +14,10 @@ function App() {
         <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/vender" element={<Vender />} />
+        <Route path="/stands" element={<Stands />} />
         </Routes>
     </IntlProvider>
-    );
+    );  
 }
 
 export default App;

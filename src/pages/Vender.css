@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #0033cc;
+    background-color: #3A5BA0;
     padding: 10px 40px;
     color: white;
 }
@@ -24,13 +24,13 @@
 }
 
 .register-text {
-    color: #0033cc;
+    color: #3A5BA0;
     font-weight: 500;
     font-size: 0.95rem;
 }
 
 .register-button {
-    background-color: #f5f900;
+    background-color: #FF6B35;
     border: none;
     padding: 6px 12px;
     font-weight: bold;
@@ -59,8 +59,23 @@
     min-width: 250px;
 }
 
+.stands {
+    background-color: #FF6B35;
+    border: none;
+    padding: 15px 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    font-weight: bolder;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s;
+    font-family: Poppins, sans-serif;
+    color: black;
+    text-decoration: none;
+}
+
 .secciones button {
-    background-color: #f5f900;
+    background-color: #FF6B35;
     border: none;
     padding: 15px 15px;
     font-size: 1rem;
@@ -73,7 +88,7 @@
 }
 
 .secciones button:hover {
-    background-color: #e0e000;
+    background-color: #FF6B35;
 }
 
 
@@ -101,6 +116,14 @@
     border-radius: 6px;
     background-color: #f1f1f1;
     font-size: 1rem;
+}
+
+.footer-stands {
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    padding: clamp(10px, 2vw, 20px);
+    flex-shrink: 0;
 }
 
 
