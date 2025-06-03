@@ -1,0 +1,314 @@
+/* AnuncioStand.css */
+
+.anuncio-stand-container {
+min-height: 100vh;
+background-color: #f5f5f5;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+padding: 10px 20px;
+font-size: 14px;
+color: #666;
+background-color: white;
+}
+
+.breadcrumb span {
+color: #007bff;
+cursor: pointer;
+}
+
+.breadcrumb span:hover {
+text-decoration: underline;
+}
+
+/* Stand Header */
+.stand-header {
+padding: 20px;
+background-color: white;
+border-bottom: 1px solid #e0e0e0;
+}
+
+.stand-header h1 {
+font-size: 32px;
+margin: 0 0 10px 0;
+color: #333;
+}
+
+.stand-meta {
+display: flex;
+gap: 20px;
+font-size: 14px;
+color: #666;
+margin-bottom: 10px;
+}
+
+.categoria {
+color: #007bff;
+}
+
+.universidad {
+color: #666;
+}
+
+.stand-rating {
+display: flex;
+align-items: center;
+gap: 20px;
+font-size: 14px;
+}
+
+.rating {
+background-color: #4CAF50;
+color: white;
+padding: 4px 12px;
+border-radius: 4px;
+font-weight: 500;
+}
+
+.estado {
+color: #666;
+}
+
+/* Stand Imágenes */
+.stand-imagenes {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+padding: 20px;
+background-color: white;
+margin-bottom: 20px;
+}
+
+.imagen-principal {
+grid-row: span 2;
+}
+
+.imagenes-secundarias {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.imagen-placeholder-large,
+.imagen-placeholder-medium {
+background-color: #e0e0e0;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #666;
+border-radius: 8px;
+}
+
+.imagen-placeholder-large {
+height: 400px;
+width: 100%;
+}
+
+.imagen-placeholder-medium {
+height: 130px;
+width: 100%;
+}
+
+.ver-galeria {
+background-color: rgba(0, 0, 0, 0.6);
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+height: 130px;
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.ver-galeria:hover {
+background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Tabs */
+.tabs-container {
+background-color: white;
+border-bottom: 1px solid #e0e0e0;
+}
+
+.tabs {
+display: flex;
+padding: 0 20px;
+}
+
+.tab {
+padding: 15px 30px;
+background: none;
+border: none;
+border-bottom: 3px solid transparent;
+cursor: pointer;
+font-size: 16px;
+color: #666;
+transition: all 0.3s;
+}
+
+.tab:hover {
+color: #333;
+}
+
+.tab.active {
+color: #007bff;
+border-bottom-color: #007bff;
+font-weight: 500;
+}
+
+/* Tab Content */
+.tab-content {
+padding: 20px;
+background-color: white;
+min-height: 400px;
+}
+
+/* Productos Grid */
+.productos-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+gap: 20px;
+padding: 20px 0;
+}
+
+.producto-card {
+padding: 0px 0px 10px 0px;
+background-color: white;
+border: 1px solid #e0e0e0;
+border-radius: 8px;
+overflow: hidden;
+transition: transform 0.2s, box-shadow 0.2s;
+cursor: pointer;
+}
+
+.producto-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.producto-imagen {
+width: 100%;
+height: 150px;
+background-color: #f0f0f0;
+}
+
+.imagen-placeholder {
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: #ff6b35;
+color: white;
+font-size: 14px;
+}
+
+.producto-info {
+padding: 10px; 
+text-align: center;
+}
+
+.producto-nombre {
+margin: 0 0 5px 0;
+font-size: 14px;
+color: #333;
+}
+
+.producto-precio {
+margin: 0;
+font-size: 14px;
+color: #666;
+font-weight: 500;
+}
+
+/* Comentarios Section */
+.comentarios-section {
+padding: 20px 0;
+}
+
+.comentarios-section h3 {
+margin: 0 0 20px 0;
+color: #333;
+}
+
+.comentario-box {
+background-color: #f5f5f5;
+padding: 40px;
+text-align: center;
+border-radius: 8px;
+color: #666;
+}
+
+/* Galería Section */
+.galeria-section {
+padding: 20px 0;
+}
+
+.galeria-section h3 {
+margin: 0 0 20px 0;
+color: #333;
+}
+
+.galeria-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 15px;
+}
+
+.galeria-item {
+height: 200px;
+border-radius: 8px;
+overflow: hidden;
+}
+
+/* Mapa Section */
+.mapa-section {
+padding: 20px 0;
+}
+
+.mapa-section h3 {
+margin: 0 0 20px 0;
+color: #333;
+}
+
+.mapa-container {
+border-radius: 8px;
+overflow: hidden;
+}
+
+/* Mensaje Productos */
+.mensaje-productos {
+background-color: #5874b9;
+color: white;
+text-align: center;
+padding: 60px 20px;
+font-size: 24px;
+font-weight: 300;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+.stand-imagenes {
+    grid-template-columns: 1fr;
+}
+
+.productos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+
+.tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tab {
+    padding: 15px 20px;
+    white-space: nowrap;
+}
+
+.galeria-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+}
