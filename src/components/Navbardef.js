@@ -21,7 +21,7 @@ function Navbar() {
     
 {/* Contenedor de los elementos del menú */}
     <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
-        <a className="nav-item profile-link" href="#MiPerfil">Mi Perfil</a>
+        <Link to="/perfil" className="nav-item profile-link">Mi Perfil</Link>
         <a className="nav-item" href="#Inicio" onClick={() => console.log("Enlace clickeado")}>Inicio</a>
 
         <Link to="/vender" className="nav-item" >Vender</Link>

@@ -1,0 +1,52 @@
+.hu04-favoritos-container {
+  width: 100%;
+}
+
+.favoritos-section {
+  margin-bottom: 30px;
+}
+
+.favoritos-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: bold;
+}
+
+.favorito-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.favorito-item:last-child {
+  border-bottom: none;
+}
+
+.favorito-item span {
+  color: #333;
+}
+
+.heart {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.otros-visitados-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: bold;
+}
+
+.visitado-item {
+  padding: 10px 0;
+  color: #666;
+  border-bottom: 1px solid #eee;
+}
+
+.visitado-item:last-child {
+  border-bottom: none;
+}

@@ -1,0 +1,189 @@
+.perfil-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
+.perfil-header {
+  background-color: #4472C4;
+  color: white;
+  padding: 30px 0;
+  text-align: center;
+}
+
+.perfil-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: normal;
+}
+
+.perfil-content {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  gap: 40px;
+}
+
+/* Sección izquierda - Información del usuario */
+.user-info-section {
+  flex: 1;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: relative;
+  height: fit-content;
+}
+
+.user-avatar {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.avatar-circle {
+  width: 120px;
+  height: 120px;
+  background-color: #ddd;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.avatar-icon {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.avatar-icon::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #999;
+  border-radius: 50%;
+}
+
+.avatar-icon::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35px;
+  height: 20px;
+  background-color: #999;
+  border-radius: 20px 20px 0 0;
+}
+
+.user-details {
+  margin-bottom: 40px;
+}
+
+.detail-item {
+  margin-bottom: 25px;
+}
+
+.detail-item label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.detail-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.edit-icon {
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+}
+
+.edit-icon:hover {
+  color: #333;
+}
+
+.back-button {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+
+.btn-back {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-back:hover {
+  background-color: #ccc;
+}
+
+/* Sección derecha - Stands */
+.stands-section {
+  flex: 1;
+}
+
+.stands-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.stands-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.stands-dropdown {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .perfil-content {
+    flex-direction: column;
+    padding: 20px 10px;
+  }
+  
+  .perfil-header h1 {
+    font-size: 2rem;
+  }
+  
+  .user-info-section,
+  .stands-card {
+    padding: 20px;
+  }
+}
