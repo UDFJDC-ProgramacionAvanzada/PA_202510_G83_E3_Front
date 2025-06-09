@@ -2,9 +2,9 @@ import React from 'react';
 // Importa los estilos específicos para este componente
 import './HU04.css';
 
-const HU04 = () => {
-  // Lista de nombres de stands simulando datos de vendedores universitarios
-  const universities = [
+// Datos centralizados en el componente (mejor que hardcoded disperso)
+const STANDS_DATA = {
+  universities: [
     "Stand Que rica yuca",
     "Stand Sexshop la javeriana", 
     "Stand happy brownies la 40",
@@ -16,19 +16,23 @@ const HU04 = () => {
     "Stand 10",
     "Stand 11",
     "Stand 12",
-  ];
+  ]
+};
 
-  // Selecciona los primeros 4 stands como "favoritos"
-  const vendedoresFavoritos = universities.slice(0, 4).map((nombre, index) => ({
-    id: index + 1,   // ID único basado en el índice
-    nombre: nombre   // Nombre del stand
-  }));
-
-  // Selecciona del 5 al 7 como "otros visitados"
-  const otrosVisitados = universities.slice(4, 7).map((nombre, index) => ({
-    id: index + 6,   // ID único, continua después de los favoritos
+const HU04 = () => {
+  // Funciones puras para lógica de negocio (SRP)
+  const getFavoritos = () => STANDS_DATA.universities.slice(0, 4).map((nombre, index) => ({
+    id: index + 1,
     nombre: nombre
   }));
+
+  const getOtrosVisitados = () => STANDS_DATA.universities.slice(4, 7).map((nombre, index) => ({
+    id: index + 6,
+    nombre: nombre
+  }));
+
+  const vendedoresFavoritos = getFavoritos();
+  const otrosVisitados = getOtrosVisitados();
 
   return (
     <div className="hu04-favoritos-container">
