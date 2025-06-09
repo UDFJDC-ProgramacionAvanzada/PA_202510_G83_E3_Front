@@ -6,44 +6,50 @@ import Footer from '../components/footer.js';
 import { useState } from 'react';
 
 function Vender() {
+    // Estado para controlar si el usuario está logueado o no
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // Estado para mostrar mensaje de error en login
     const [showError, setShowError] = useState(false);
+    // Estado para guardar los datos del formulario
     const [formData, setFormData] = useState({
         usuario: '',
         password: ''
     });
 
+    // Función para actualizar los datos del formulario y limpiar error al escribir
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
-        // Limpiar error cuando el usuario empiece a escribir
         if (showError) {
             setShowError(false);
         }
     };
 
+    // Función que maneja el submit del formulario de login
     const handleLogin = (e) => {
         e.preventDefault();
         
-        // Validación básica
+        // Validación básica: verificar que campos no estén vacíos
         if (!formData.usuario || !formData.password) {
             setShowError(true);
             return;
         }
 
-        // Simulación de validación de login (aquí pondrías tu lógica real)
+        // Simulación de autenticación: usuario y contraseña fijos
         if (formData.usuario === 'admin' && formData.password === '123456') {
             setIsLoggedIn(true);
             setShowError(false);
         } else {
+            // Mostrar error si credenciales no coinciden
             setShowError(true);
             setIsLoggedIn(false);
         }
     };
 
+    // Función para cerrar sesión, limpiar estados y formulario
     const handleLogout = () => {
         setIsLoggedIn(false);
         setFormData({
@@ -55,6 +61,7 @@ function Vender() {
 
     return(
         <>
+            {/* Encabezado con título de la página */}
             <header>
                 <div className="vender-container">
                     <h1 className='texto-vender'><FormattedMessage id='VENDER'/></h1>
@@ -63,7 +70,7 @@ function Vender() {
 
             <div className='profile-container'>
                 {!isLoggedIn ? (
-                    // Mostrar formulario de login
+                    // Mostrar formulario de login si no está autenticado
                     <div className='login-container'>
                         <h2 className='login-title'> Inicia sesion </h2>
                         <form className='formulario_inicio' onSubmit={handleLogin}>
@@ -88,6 +95,7 @@ function Vender() {
                             </button>
                         </form>
                         
+                        {/* Mensaje de error cuando las credenciales son incorrectas o campos vacíos */}
                         {showError && (
                             <div className='error-message'>
                                 <p style={{color: 'red', textAlign: 'center', marginTop: '10px'}}>
@@ -97,7 +105,7 @@ function Vender() {
                         )}
                     </div>
                 ) : (
-                    // Mostrar secciones después del login exitoso
+                    // Contenido visible luego de iniciar sesión exitosamente
                     <>
                         <div className='welcome-message'>
                             <p>¡Bienvenido, {formData.usuario}!</p>
@@ -106,6 +114,7 @@ function Vender() {
                             </button>
                         </div>
                         
+                        {/* Secciones accesibles después de iniciar sesión */}
                         <div className='secciones'>
                             <Link to="/stands" className='stands'>
                                 <FormattedMessage id='Stand'/>

@@ -11,24 +11,26 @@ import { IntlProvider } from 'react-intl';
 import detectLanguage from './localizacion/detectarlenguaje';
 
 function App() {
+    // Detectar idioma del navegador y obtener mensajes traducidos
     const { locale, messages } = detectLanguage();
 
-return (
-    <IntlProvider locale={locale} messages={messages}>
-    <Routes>
-        {/* Rutas que incluyen footer */}
-        <Route element={<LayoutWithFooter />}>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/vender" element={<Vender />} />
-        </Route>
+    return (
+        // Proveedor de contexto de internacionalización
+        <IntlProvider locale={locale} messages={messages}>
+            <Routes>
+                {/* Rutas que comparten el layout con footer */}
+                <Route element={<LayoutWithFooter />}>
+                    <Route path="/" element={<Inicio />} />
+                    <Route path="/vender" element={<Vender />} />
+                </Route>
 
-        {/* Rutas que NO deben mostrar footer */}
-        <Route path="/stands" element={<StandsFunc />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/anuncio-stand" element={<AnuncioStand />} />
-    </Routes>
-    </IntlProvider>
-);
+                {/* Rutas que no deben incluir el footer */}
+                <Route path="/stands" element={<StandsFunc />} />
+                <Route path="/perfil" element={<Perfil />} />
+                <Route path="/anuncio-stand" element={<AnuncioStand />} />
+            </Routes>
+        </IntlProvider>
+    );
 }
 
 export default App;
