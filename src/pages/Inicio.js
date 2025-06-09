@@ -3,10 +3,10 @@ import './Inicio.css';
 import HU13 from '../components/HU13.js';
 import Mapa from '../components/Mapa.js' 
 import Navbar from '../components/Navbardef.js'; 
-import Footer from '../components/footer.js';
 
 function Inicio() {
   return (
+    <div className="page-container">
     <React.Fragment>
     <body>
         <div>
@@ -19,10 +19,8 @@ function Inicio() {
         <Mapa/>
       </div>
     </body>
-      <footer>
-        <Footer/>
-      </footer>
     </React.Fragment>
+    </div>
   );
 }
 

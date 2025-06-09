@@ -1,7 +1,9 @@
 .footer {
+width: 100%;
 background-color: #FF6B35;
 padding: 20px 0;
 font-family: 'Arial', sans-serif;
+
 }
 
 .footer-container {
