@@ -98,8 +98,8 @@ function Vender() {
 
                         {showError && (
                             <div className='error-message'>
-                                <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>
-                                    <FormattedMessage id="login.error" defaultMessage="Error: Credenciales incorrectas o campos vacíos" />
+                                <p className='error-text'>
+                                    <FormattedMessage id="login.error"/>
                                 </p>
                             </div>
                         )}
