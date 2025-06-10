@@ -33,19 +33,18 @@ function Navbar() {
                 <Link to="/perfil" className="nav-item profile-link">Mi Perfil</Link>
 
                 {/* Enlace ancla a sección Inicio, con manejador para registro en consola */}
-                <a className="nav-item" href="#Inicio" onClick={() => console.log("Enlace clickeado")}>Inicio</a>
+                <Link to="/" className="nav-item">Inicio</Link>
 
                 {/* Enlace a página para vender productos */}
                 <Link to="/vender" className="nav-item">Vender</Link>
 
                 {/* Enlace ancla a sección Comprar */}
-                <a className="nav-item" href="#Comprar">Comprar</a>
+                <Link to="/comprar" className="nav-item">Comprar</Link>
 
                 {/* Botón para iniciar sesión que redirige a una URL externa */}
                 <button 
-                    className="nav-item login-btn" 
-                    onClick={() => window.location.href='https://youtube.com/a/chat/s/62cfa149-33d0-4bcc-879c-d689d0ff6910'}>
-                    Iniciar Sesión
+                    className="nav-item login-btn">
+                    <Link to="/login" className="nav-item">Inicia sesion</Link>
                 </button>
             </div>
         </div>

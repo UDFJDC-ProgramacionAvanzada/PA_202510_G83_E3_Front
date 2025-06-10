@@ -1,6 +1,8 @@
 import React from 'react';
 // Importa los estilos específicos de este componente
 import './HU13.css';
+import { FormattedMessage } from 'react-intl';
+
 
 function HU13() {
     return (
@@ -11,13 +13,13 @@ function HU13() {
                 <div className="left-content">
                     {/* Título promocional del sitio */}
                     <h2 className="titulo_de_aviso">
-                        Compra, vende e impulsa a tu universidad
+                        <FormattedMessage id='Compra, vende e impulsa a tu universidad' /> 
                     </h2>
 
                     {/* Campo de búsqueda para que el usuario introduzca lo que desea buscar */}
                     <input 
                         type="text" 
-                        placeholder="¿Qué estás buscando hoy?" 
+                        placeholder= "¿Qué estás buscando?" 
                         className="search-input" 
                     />
                 </div>

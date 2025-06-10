@@ -9,6 +9,9 @@ import AnuncioStand from './pages/AnuncioStand';
 import LayoutWithFooter from './components/LayoutWithFooter';
 import { IntlProvider } from 'react-intl';
 import detectLanguage from './localizacion/detectarlenguaje';
+import Loginpage from './pages/login';
+import Comprar from './pages/Comprar';
+
 
 function App() {
     // Detectar idioma del navegador y obtener mensajes traducidos
@@ -22,12 +25,15 @@ function App() {
                 <Route element={<LayoutWithFooter />}>
                     <Route path="/" element={<Inicio />} />
                     <Route path="/vender" element={<Vender />} />
+                    <Route path="/anuncio-stand" element={<AnuncioStand />} />
+                    <Route path="/comprar" element={<Comprar />} />
                 </Route>
 
                 {/* Rutas que no deben incluir el footer */}
                 <Route path="/stands" element={<StandsFunc />} />
                 <Route path="/perfil" element={<Perfil />} />
-                <Route path="/anuncio-stand" element={<AnuncioStand />} />
+                <Route path="/Login" element= {<Loginpage/>} />
+                
             </Routes>
         </IntlProvider>
     );

@@ -1,0 +1,440 @@
+    /* StandsListing.css */
+
+    /* Variables de color */
+    :root {
+    --primary-red: #ef4444;
+    --primary-red-hover: #dc2626;
+    --success-green: #059669;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --white: #ffffff;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Reset básico */
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    }
+
+    /* Estilos base para el contenedor principal */
+    .stands-listing-container {
+    min-height: 100vh;
+    background-color: var(--gray-50);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    /* Header sticky */
+    .search-header {
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    }
+
+    .header-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    }
+
+    .page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    white-space: nowrap;
+    }
+
+    /* Barra de búsqueda */
+    .search-container {
+    position: relative;
+    flex: 1;
+    }
+
+    .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    }
+
+    .search-input {
+    width: 100%;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    }
+
+    .search-input:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+
+    /* Sección de filtros */
+    .filters-section {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    }
+
+    .filters-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0.75rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    }
+
+    /* Botones y selectores */
+    .filter-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 0.5rem;
+    background-color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    }
+
+    .filter-button:hover {
+    background-color: var(--gray-50);
+    border-color: var(--gray-400);
+    }
+
+    .filter-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 0.5rem;
+    background-color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    outline: none;
+    }
+
+    .filter-select:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+
+    /* Contenedor de resultados */
+    .results-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    
+    }
+
+    .results-link{
+    text-decoration: none;
+    }
+
+    .results-count {
+    font-size: 1rem;
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+    }
+
+    /* Grid de stands */
+    .stands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    }
+
+    /* Card de stand */
+    .stand-card {
+    background-color: var(--white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+    }
+
+    .stand-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    }
+
+    /* Imagen del stand */
+    .stand-image-container {
+    position: relative;
+    height: 192px;
+    overflow: hidden;
+    }
+
+    .stand-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+    }
+
+    .stand-card:hover .stand-image {
+    transform: scale(1.05);
+    }
+
+    /* Badge trending */
+    .trending-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: var(--primary-red);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+    }
+
+    /* Botón favorito */
+    .favorite-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--white);
+    padding: 0.5rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    }
+
+    .favorite-button:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+    }
+
+    .favorite-icon {
+    color: var(--gray-600);
+    transition: all 0.2s;
+    }
+
+    .favorite-icon.active {
+    fill: var(--primary-red);
+    color: var(--primary-red);
+    }
+
+    /* Contenido del card */
+    .stand-content {
+    padding: 1rem;
+    }
+
+    .stand-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    }
+
+    .stand-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 0;
+    line-height: 1.4;
+    }
+
+    .price-range {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    font-weight: 500;
+    }
+
+    /* Rating */
+    .rating-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    }
+
+    .rating-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: var(--success-green);
+    color: var(--white);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    }
+
+    .reviews-count {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    }
+
+    /* Meta información */
+    .meta-info {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-bottom: 0.5rem;
+    }
+
+    .meta-info p {
+    margin: 0;
+    }
+
+    /* Tags */
+    .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    }
+
+    .tag {
+    font-size: 0.75rem;
+    background-color: var(--gray-100);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: var(--gray-700);
+    }
+
+    /* Información de ubicación */
+    .location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    }
+
+    .info-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    }
+
+    .info-icon {
+    flex-shrink: 0;
+    color: var(--gray-400);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .page-title {
+        font-size: 1.25rem;
+    }
+    
+    .search-container {
+        width: 100%;
+    }
+    
+    .stands-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .filters-container {
+        padding: 0.75rem 1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .results-container {
+        padding: 1rem;
+    }
+    }
+
+    @media (max-width: 480px) {
+    .stand-card {
+        border-radius: 0.5rem;
+    }
+
+    .stand-name {
+        font-size: 1rem;
+    }
+
+    .filter-select {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.75rem;
+    }
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+
+    .stand-card {
+    animation: fadeIn 0.3s ease-out;
+    }
+
+    /* Estados de carga */
+    .loading-skeleton {
+    background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-300) 50%, var(--gray-200) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+    }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+    background: var(--gray-100);
+    }
+
+    ::-webkit-scrollbar-thumb {
+    background: var(--gray-400);
+    border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-500);
+    }
