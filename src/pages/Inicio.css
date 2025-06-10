@@ -1,19 +1,23 @@
 .contenido-horizontal {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap; /* Si necesitas que se acomode en pantallas pequeñas */
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem; 
   margin-top: 2rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
-.sugerencias-container {
-  flex: 1;
-  max-width: 600px;
-  margin-right: 2rem;
-}
-
+.sugerencias-container,
 .mapa-container {
-  flex: 1;
+  flex: 1 1 300px; 
   max-width: 600px;
+  min-width: 280px;
+}
+
+@media (max-width: 768px) {
+  .sugerencias-container,
+  .mapa-container {
+    max-width: 100%;
+    margin-right: 0;
+  }
 }

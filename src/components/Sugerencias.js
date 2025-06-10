@@ -6,17 +6,17 @@ const recomendaciones = [
   {
     nombre: 'Arte & Cultura',
     descripcion: 'Productos artesanales hechos a mano.',
-    imagen: '/img/arte.png',
+    imagen: '/art.jpeg',
   },
   {
     nombre: 'Tecnología',
     descripcion: 'Gadgets útiles y herramientas tecnológicas.',
-    imagen: '/img/tecnologia.png',
+    imagen: '/tecnologia.jpg',
   },
   {
     nombre: 'Ropa y Moda',
     descripcion: 'Estilo universitario y prendas únicas.',
-    imagen: '/img/moda.png',
+    imagen: '/moda.png',
   },
 ];
 

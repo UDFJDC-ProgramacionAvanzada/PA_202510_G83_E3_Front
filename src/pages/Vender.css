@@ -107,9 +107,12 @@
     align-items: center;
     flex: 1;
     min-width: 250px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
 }
+
 
 .formulario_inicio {
     display: flex;
@@ -117,8 +120,11 @@
     gap: 15px;
     margin-top: 20px;
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
+
 
 .formulario_inicio input {
     padding: 12px;
@@ -166,7 +172,69 @@
 
 }
 
+.welcome-message {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-family: 'Arial', sans-serif;
+}
 
+
+.welcome-message p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+.btn-logout {
+    background-color: #ff6b2c;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #e35a1f;
+}
+
+
+.secciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.secciones button,
+.secciones .stands,
+.secciones .universidades {
+    background-color: #ff6b2c;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 1000px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.secciones button:hover,
+.secciones .stands:hover,
+.secciones .universidades:hover {
+    background-color: #e35a1f;
+}
 
 
 @media (max-width: 768px) {
@@ -190,6 +258,15 @@
     .formulario_inicio {
         max-width: 100%;
     }
+
+    .login-container {
+    align-items: stretch;
+}
+
+.formulario_inicio {
+    padding: 0 20px;
+}
+
 }
 
 
