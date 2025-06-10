@@ -1,6 +1,7 @@
     import React, { useState } from 'react';
     import './Comprar.css';
     import {Link} from 'react-router-dom';
+    import Navbar from '../components/Navbardef';
 
     const StandsListing = () => {
     const [selectedUniversity, setSelectedUniversity] = useState('todas');
@@ -130,6 +131,8 @@
     });
 
     return (
+        <React.Fragment>
+            <Navbar />
         <div className="stands-listing-container">
         {/* Header con búsqueda */}
         <div className="search-header">
@@ -299,6 +302,7 @@
             </Link>            
         </div>
         </div>
+        </React.Fragment>
     );
     };
 

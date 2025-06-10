@@ -31,26 +31,34 @@ function StandsFunc() {
     const [stands, setStands] = useState([
         {
             id: 1,
-            lat: 4.6097,
-            lng: -74.0817,
-            nombre: "Stand Universidad de los Andes - Principal",
-            descripcion: "Stand principal del campus",
+            lat: 4.613417952161312,
+            lng: -74.06373665455848,
+            nombre: "Stand Tangas la Macarena",
+            descripcion: "Stand mas visibles",
             disponible: true
         },
         {
             id: 2,
-            lat: 4.6085,
-            lng: -74.0825,
-            nombre: "Stand Biblioteca Mario Laserna",
-            descripcion: "Cerca de la biblioteca principal",
+            lat: 4.61334285476392,
+            lng: -74.06352782123379,
+            nombre: "Stand entrada 3",
+            descripcion: "Cerca de la cafetería",
             disponible: false
         },
         {
             id: 3,
-            lat: 4.6105,
-            lng: -74.0810,
-            nombre: "Stand Cafetería Central",
-            descripcion: "Al lado de la cafetería principal",
+            lat: 4.613559033455715,
+            lng: -74.06536975603801,
+            nombre: "Stand Sede B",
+            descripcion: "en la sede B de la universidad",
+            disponible: true
+        },
+        {
+            id: 4, 
+            lat: 4.628033146013121,
+            lng: -74.06587574341755,
+            nombre: "Stand japy brownies la 40",
+            descripcion: "a 2 metros de la subida al segundo piso de la 40",
             disponible: true
         }
     ]);
@@ -69,18 +77,10 @@ function StandsFunc() {
 
     // Opciones de stands o universidades para el dropdown
     const universities = [
-        "Stand Que rica yuca",
-        "Stand Sexshop la javeriana",
-        "Stand happy brownies la 40",
+        "Stand entrada 3",
+        "Stand Sede B",
+        "Stand japy brownies la 40",
         "Stand tangas la macarena",
-        "Stand 6",
-        "Stand 6",
-        "Stand 7",
-        "Stand 8",
-        "Stand 9",
-        "Stand 10",
-        "Stand 11",
-        "Stand 12",
     ];
 
     // Función para reservar un stand, actualizando su estado a no disponible
