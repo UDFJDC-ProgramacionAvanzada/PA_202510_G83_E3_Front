@@ -11,7 +11,7 @@ import { IntlProvider } from 'react-intl';
 import detectLanguage from './localizacion/detectarlenguaje';
 import Loginpage from './pages/login';
 import Comprar from './pages/Comprar';
-
+import Terms from './pages/Terms';
 
 function App() {
     // Detectar idioma del navegador y obtener mensajes traducidos
@@ -27,6 +27,7 @@ function App() {
                     <Route path="/vender" element={<Vender />} />
                     <Route path="/anuncio-stand" element={<AnuncioStand />} />
                     <Route path="/comprar" element={<Comprar />} />
+                    <Route path="/terms" element={<Terms />} />
                 </Route>
 
                 {/* Rutas que no deben incluir el footer */}

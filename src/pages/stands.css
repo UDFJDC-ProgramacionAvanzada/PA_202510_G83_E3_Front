@@ -8,428 +8,494 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* Evitar scroll horizontal */
 }
 
 .stands-container {
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #f5f5f5;
 }
 
+/* NAVBAR */
 .navbar {
     background-color: #3A5BA0;
-    padding: 15px 25px;
-    font-size: clamp(18px, 4vw, 25px); /* Responsive font size */
-    align-items: center;
+    padding: 1rem 1.5rem;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     color: #fff;
     flex-shrink: 0;
     min-height: 60px;
+    width: 100%;
 }
 
+.title {
+    font-size: clamp(1.25rem, 5vw, 2rem);
+    font-weight: 600;
+    margin: 0;
+}
+
+/* CONTENIDO PRINCIPAL */
 .main-content {
     display: flex;
     width: 100%;
     flex: 1;
     box-sizing: border-box;
     overflow: hidden;
-    flex-direction: row; /* Por defecto horizontal */
+    min-height: 0; /* Importante para que funcione el scroll interno */
 }
 
+/* SECCIÓN IZQUIERDA */
 .left-section {
     width: 30%;
+    min-width: 280px;
+    max-width: 400px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: clamp(10px, 2vw, 20px);
-    box-sizing: border-box;
-    padding: clamp(5px, 2vw, 10px) clamp(2%, 3vw, 5%) clamp(5px, 2vw, 10px) clamp(1%, 2vw, 2%);
+    gap: 1.25rem;
+    padding: 1.5rem;
     overflow-y: auto;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
 }
 
+/* Dropdown Container */
 .subtitle-container {
     position: relative;
-    align-items: center;
-    padding: clamp(20px, 5vw, 44px) 0px clamp(10px, 3vw, 20px) 0px;
-    margin: 0px;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .subtitle {
     width: 100%;
-    min-height: clamp(50px, 8vw, 77px);
+    min-height: 3.5rem;
     background-color: #FF6B35;
-    border-radius: 6px;
-    font-weight: bold;
-    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
+    color: black;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
-    justify-content: space-between; 
-    transition: background-color 0.2s ease-in-out;
-    font-size: clamp(12px, 2.5vw, 16px);
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    font-size: clamp(0.875rem, 2vw, 1rem);
     border: none;
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .subtitle:hover {
-    background-color: rgba(255, 106, 0, 0.774);
-    transform: scale(1.03);
-    transition: transform 0.2s ease;
+    background-color: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.subtitle:active {
+    transform: translateY(0);
+}
+
+/* Dropdown Menu */
 .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 0.5rem);
     left: 0;
     right: 0;
-    margin-top: 0.5rem;
     background-color: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    max-height: 200px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    max-height: 240px;
     overflow-y: auto;
+    animation: dropdownOpen 0.2s ease-out;
+}
+
+@keyframes dropdownOpen {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-option {
     width: 100%;
-    border: 1px solid #0000008c;
     text-align: left;
-    padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.5rem, 2vw, 1rem);
-    transition: background-color 150ms ease-in-out;
-    background-color: #FF6B358c;
-    font-size: clamp(10px, 2vw, 14px);
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
     border: none;
     cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-option:last-child {
+    border-bottom: none;
 }
 
 .dropdown-option:hover {
-    background-color: #f3f4f6;
+    background-color: #fff5f2;
+    color: #FF6B35;
+    padding-left: 1.25rem;
 }
 
+/* Input Group */
 .input-group {
-    align-items: center;
-    padding: 0px 0px clamp(10px, 3vw, 20px) 0px;
+    width: 100%;
+    margin-bottom: 1.5rem;
 }
 
 .input-text {
-    font-size: clamp(16px, 3vw, 23px);
-    margin-bottom: clamp(5px, 1vw, 10px);
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
+    margin-bottom: 0.75rem;
     display: block;
+    color: #374151;
+    font-weight: 500;
 }
 
 .input {
-    padding: clamp(0.5em, 2vw, 1em);
+    padding: 0.75rem 1rem;
     width: 100%;
-    max-width: 100%;
-    border: none;
+    border: 2px solid #e5e7eb;
     outline: none;
-    border-radius: 6px;
-    background-color: #f0ecec;
-    box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
-    transition: 300ms ease-in-out;
-    font-size: clamp(12px, 2vw, 16px);
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    transition: all 0.3s ease;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
 }
 
 .input:focus {
-    background-color: rgb(223, 219, 219);
-    transform: scale(1.05);
-    box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
+    background-color: #fff;
+    border-color: #FF6B35;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
 }
 
-.right-section {
-    width: 70%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(10px, 2vw, 20px);
-    box-sizing: border-box;
-    padding: clamp(5px, 2vw, 10px) clamp(1%, 2vw, 2%) clamp(5px, 2vw, 10px) clamp(2%, 3vw, 5%);
-    position: relative;
-    overflow-y: auto;
+.input::placeholder {
+    color: #9ca3af;
 }
 
-.right-section h2 {
-    font-size: clamp(16px, 3vw, 24px);
-    margin-bottom: clamp(10px, 2vw, 15px);
-    text-align: center;
+/* Perfil Button */
+.recomendaciones-perfil {
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
 .ver-perfil {
-    width: clamp(120px, 20vw, 148px);
-    height: clamp(35px, 6vw, 45px);
+    width: 100%;
+    height: 3rem;
     background-color: #3A5BA0;
     color: white;
-    border-radius: 6px;
+    border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(12px, 2.5vw, 16px);
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    font-weight: 500;
     cursor: pointer;
     border: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.recomendaciones {
-    width: 100%;
-    min-height: clamp(60px, 10vw, 77px);
-    padding: clamp(5px, 2vw, 10px);
-    background-color: #FF6B35;
-    border: none;
-    border-radius: 6px;
+.ver-perfil:hover {
+    background-color: #2e4a8a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* SECCIÓN DERECHA */
+.right-section {
+    flex: 1;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background-color: #fafafa;
 }
 
-.recomendaciones-title {
-    font-size: clamp(16px, 3vw, 24px);
-    margin-bottom: clamp(5px, 1vw, 10px);
+.right-section h2 {
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #1f2937;
 }
 
-.recomendaciones-perfil {
-    padding: clamp(15px, 4vw, 30px) 0px 0px 0px;
+.right-section em {
+    color: #FF6B35;
+    font-style: normal;
+    font-weight: 600;
 }
 
-.recomendaciones-description {
-    font-size: clamp(10px, 2vw, 13px);
-}
-
-.btn-regresar {
-    width: clamp(45px, 8vw, 55px);
-    height: clamp(45px, 8vw, 55px);
-    background-color: #DDDED9;
-    color: black;
-    border-radius: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: clamp(24px, 4vw, 31px);
-    cursor: pointer;
-    border: none;
-}
-
-.footer-stands {
-    align-items: center;
-    justify-content: flex-end;
-    display: flex;
-    padding: clamp(10px, 2vw, 20px);
-    flex-shrink: 0;
-}
-
-/* Estilos para el mapa */
-@import "leaflet/dist/leaflet.css";
-
+/* Mapa */
 #mapa-stands {
-    height: clamp(300px, 50vh, 500px);
+    height: 500px;
     width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    background-color: #e5e7eb;
+    position: relative;
 }
 
 .leaflet-container {
-    border-radius: 8px;
+    border-radius: 0.75rem;
+    height: 100%;
+    width: 100%;
 }
 
 .leaflet-popup-content-wrapper {
-    border-radius: 8px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .leaflet-popup-content {
-    margin: 15px;
+    margin: 1rem;
+    font-family: "Poppins", sans-serif;
 }
 
-/* MEDIA QUERIES PARA RESPONSIVE */
+/* Footer */
+.footer-stands {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+    background-color: #fff;
+    border-top: 1px solid #e5e7eb;
+    flex-shrink: 0;
+}
 
-/* Tablets (768px y menos) */
+.btn-regresar {
+    width: 3rem;
+    height: 3rem;
+    background-color: #e5e7eb;
+    color: #374151;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-regresar:hover {
+    background-color: #d1d5db;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* MEDIA QUERIES */
+
+/* Tablets (1024px y menos) */
+@media (max-width: 1024px) {
+    .left-section {
+        width: 35%;
+        min-width: 260px;
+    }
+    
+    #mapa-stands {
+        height: 450px;
+    }
+}
+
+/* Tablets pequeñas y móviles grandes (768px y menos) */
 @media (max-width: 768px) {
     .main-content {
-        flex-direction: column; /* Cambiar a columna en tablets */
+        flex-direction: column;
         overflow-y: auto;
+        overflow-x: hidden;
     }
     
     .left-section {
         width: 100%;
-        height: auto;
+        max-width: 100%;
+        min-width: unset;
+        box-shadow: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 1.25rem;
         min-height: auto;
-        padding: 15px;
-        order: 1;
+        overflow-y: visible;
     }
     
     .right-section {
         width: 100%;
-        height: auto;
-        padding: 15px;
-        order: 2;
+        padding: 1.25rem;
+        min-height: auto;
     }
     
     #mapa-stands {
-        height: clamp(250px, 40vh, 400px);
+        height: 400px;
+        margin-bottom: 1rem;
     }
     
     .navbar {
-        padding: 10px 15px;
-        text-align: center;
-    }
-    
-    .subtitle-container {
-        padding: 20px 0px 15px 0px;
-    }
-    
-    .input-group {
-        padding: 0px 0px 15px 0px;
+        padding: 0.875rem 1.25rem;
     }
     
     .recomendaciones-perfil {
-        padding: 20px 0px 0px 0px;
+        margin-top: 1.5rem;
+        padding-top: 0;
     }
 }
 
-/* Móviles (480px y menos) */
+/* Móviles medianos (480px y menos) */
 @media (max-width: 480px) {
     .stands-container {
-        width: 100vw;
+        background-color: #fff;
     }
     
     .navbar {
-        padding: 8px 10px;
-        font-size: 18px;
+        padding: 0.75rem 1rem;
         min-height: 50px;
+    }
+    
+    .title {
+        font-size: 1.25rem;
     }
     
     .left-section, .right-section {
-        padding: 10px;
-        gap: 15px;
+        padding: 1rem;
+        gap: 1rem;
+    }
+    
+    .subtitle-container {
+        margin-bottom: 0.75rem;
     }
     
     .subtitle {
-        min-height: 50px;
-        font-size: 14px;
-        padding: 0.4rem 0.8rem;
+        min-height: 3rem;
+        padding: 0.625rem 0.875rem;
+        font-size: 0.875rem;
+    }
+    
+    .dropdown-menu {
+        max-height: 180px;
+    }
+    
+    .dropdown-option {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.875rem;
+    }
+    
+    .input-group {
+        margin-bottom: 1rem;
     }
     
     .input-text {
-        font-size: 16px;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
     }
     
     .input {
-        padding: 0.7em;
-        font-size: 14px;
+        padding: 0.625rem 0.875rem;
+        font-size: 0.875rem;
     }
     
     .ver-perfil {
-        width: 100%;
-        max-width: 200px;
-        height: 40px;
-        font-size: 14px;
+        height: 2.5rem;
+        font-size: 0.875rem;
     }
     
-    .recomendaciones {
-        min-height: 60px;
-        padding: 8px;
+    #mapa-stands {
+        height: 350px;
+        border-radius: 0.5rem;
     }
     
-    .recomendaciones-title {
-        font-size: 18px;
-        margin-bottom: 5px;
+    .right-section h2 {
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
     }
     
-    .recomendaciones-description {
-        font-size: 11px;
+    .btn-regresar {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.25rem;
+    }
+    
+    .footer-stands {
+        padding: 0.875rem 1rem;
+    }
+}
+
+/* Móviles pequeños (360px y menos) */
+@media (max-width: 360px) {
+    .navbar {
+        padding: 0.625rem 0.75rem;
+    }
+    
+    .title {
+        font-size: 1.125rem;
+    }
+    
+    .left-section, .right-section {
+        padding: 0.75rem;
+    }
+    
+    .subtitle {
+        min-height: 2.75rem;
+        font-size: 0.8125rem;
+    }
+    
+    .input {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+    
+    .ver-perfil {
+        height: 2.25rem;
+        font-size: 0.8125rem;
     }
     
     #mapa-stands {
         height: 300px;
-        margin-top: 10px;
-    }
-    
-    .btn-regresar {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-    }
-    
-    .footer-stands {
-        padding: 15px;
     }
     
     .right-section h2 {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-    
-    /* Ajustes para los dropdowns en móvil */
-    .dropdown-menu {
-        max-height: 150px;
-    }
-    
-    .dropdown-option {
-        padding: 0.4rem 0.8rem;
-        font-size: 12px;
-    }
-}
-
-/* Móviles muy pequeños (320px y menos) */
-@media (max-width: 320px) {
-    .navbar {
-        font-size: 16px;
-        padding: 6px 8px;
-    }
-    
-    .left-section, .right-section {
-        padding: 8px;
-    }
-    
-    .input {
-        padding: 0.6em;
-        font-size: 13px;
-    }
-    
-    .ver-perfil {
-        height: 35px;
-        font-size: 12px;
-    }
-    
-    #mapa-stands {
-        height: 250px;
+        font-size: 1rem;
     }
     
     .btn-regresar {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
-    
-    .recomendaciones-title {
-        font-size: 16px;
-    }
-    
-    .right-section h2 {
-        font-size: 16px;
+        width: 2.25rem;
+        height: 2.25rem;
+        font-size: 1.125rem;
     }
 }
 
-/* Pantallas grandes (1200px y más) */
-@media (min-width: 1200px) {
+/* Pantallas muy grandes (1440px y más) */
+@media (min-width: 1440px) {
     .left-section {
-        padding: 15px 5% 15px 3%;
+        padding: 2rem;
+        gap: 1.5rem;
     }
     
     .right-section {
-        padding: 15px 3% 15px 5%;
+        padding: 2rem;
     }
     
     #mapa-stands {
         height: 600px;
     }
+    
+    .navbar {
+        padding: 1.25rem 2rem;
+    }
 }
 
-/* Landscape en móviles */
+/* Modo horizontal en móviles */
 @media (max-height: 500px) and (orientation: landscape) {
     .main-content {
         flex-direction: row;
@@ -437,28 +503,89 @@ html, body {
     
     .left-section {
         width: 35%;
+        min-width: 250px;
+        max-width: 350px;
         height: 100%;
         overflow-y: auto;
+        border-bottom: none;
+        border-right: 1px solid #e5e7eb;
     }
     
     .right-section {
         width: 65%;
         height: 100%;
+        overflow-y: auto;
     }
     
     #mapa-stands {
-        height: calc(100vh - 120px);
+        height: calc(100vh - 140px);
+        min-height: 300px;
+    }
+    
+    .navbar {
+        min-height: 50px;
+        padding: 0.5rem 1rem;
+    }
+    
+    .title {
+        font-size: 1.25rem;
     }
     
     .subtitle-container {
-        padding: 10px 0px 10px 0px;
+        margin-bottom: 0.5rem;
     }
     
     .input-group {
-        padding: 0px 0px 10px 0px;
+        margin-bottom: 0.75rem;
     }
     
     .recomendaciones-perfil {
-        padding: 15px 0px 0px 0px;
+        margin-top: 0.75rem;
+        padding-top: 0;
+    }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Soporte para navegadores que no sean webkit */
+.left-section, .right-section {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+/* Mejoras de accesibilidad */
+.subtitle:focus-visible,
+.dropdown-option:focus-visible,
+.input:focus-visible,
+.ver-perfil:focus-visible,
+.btn-regresar:focus-visible {
+    outline: 3px solid #FF6B35;
+    outline-offset: 2px;
+}
+
+/* Animaciones suaves */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

@@ -144,22 +144,16 @@ function StandsFunc() {
                             placeholder="Ej: Universidad de los Andes"
                         />
                     </div>
-
-                    {/* Sección de recomendaciones personalizadas */}
-                    <div className="recomendaciones" id="recomendaciones">
-                        <h3 className="recomendaciones-title">Recomendaciones para ti</h3>
-                        <p className="recomendaciones-description">Según reservaciones anteriores</p>
-                    </div>
                     
                     {/* Botón para acceder al perfil del usuario */}
                     <div className="recomendaciones-perfil">
-                        <button className="ver-perfil">Ver mi perfil</button>
+                        <Link to="/perfil" className="ver-perfil">Ver mi perfil</Link>
                     </div>
                 </section>
 
                 {/* Sección derecha con el mapa interactivo */}
                 <section className="right-section">
-                    <h2>Stands disponibles en <em>Universidad de los Andes</em></h2>
+                    <h2>Stands disponibles en <em>Bogotá</em></h2>
 
                     <div id="mapa-stands" style={{ height: '500px', width: '100%' }}>
                         <MapContainer

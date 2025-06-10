@@ -1,7 +1,7 @@
 import React from 'react';
 // Importa los estilos específicos del pie de página
 import './footer.css';
-// Importa Link para navegación (aunque no se usa directamente aquí)
+// Importa Link para navegación
 import { Link } from 'react-router-dom';
 // Importa íconos (no utilizados en este componente)
 import { ArrowLeft, ChevronLeft } from 'lucide-react';
@@ -17,6 +17,11 @@ function Footer() {
   const handleGoBack = (e) => {
     e.preventDefault(); // Previene el comportamiento por defecto del enlace
     navigate(-1); // Navega a la página anterior en el historial
+  };
+
+  // Función para navegar a términos y condiciones
+  const handleTermsClick = () => {
+    navigate('/terms');
   };
 
   return (
@@ -59,7 +64,9 @@ function Footer() {
           <span className="footer-link"><FormattedMessage id='MÁS SOBRE NOSOTROS'/></span>
           <span className="footer-link"><FormattedMessage id='AYUDA'/></span>
           <span className="language-text"><FormattedMessage id='Idioma: Español'/></span>
-          <span className="terms-text"><FormattedMessage id='Terminos y condiciones'/></span>
+          <span className="terms-text" onClick={handleTermsClick}>
+            <FormattedMessage id='Terminos y condiciones'/>
+          </span>
         </div>
 
       </div>

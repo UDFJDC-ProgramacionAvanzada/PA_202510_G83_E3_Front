@@ -43,10 +43,9 @@ function Navbar() {
                 <Link to="/comprar" className="nav-item"><FormattedMessage id='Comprar'/></Link>
 
                 {/* Botón para iniciar sesión que redirige a una URL externa */}
-                <button 
-                    className="nav-item login-btn">
-                    <Link to="/login" className="nav-log"><FormattedMessage id='Iniciar Sesion'/></Link>
-                </button>
+                
+                    <Link to="/login" className="nav-log nav-item login-btn"><FormattedMessage id='Iniciar Sesion'/></Link>
+                
             </div>
         </div>
     );

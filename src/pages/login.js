@@ -147,7 +147,7 @@ function LoginPage() {
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
                             className="password-toggle"
-                        >
+                        >.
                             {showPassword ? <EyeOff className="toggle-icon" /> : <Eye className="toggle-icon" />}
                         </button>
                     </div>
