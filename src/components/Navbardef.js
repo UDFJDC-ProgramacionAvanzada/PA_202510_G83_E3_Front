@@ -5,6 +5,7 @@ import { useState } from 'react';
 import './Navbar.css';
 // Importa Link para navegación interna sin recargar la página
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 function Navbar() {
     // Estado que controla si el menú hamburguesa está abierto o cerrado
@@ -30,21 +31,21 @@ function Navbar() {
             <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
 
                 {/* Enlace a perfil, usando Link para navegación SPA */}
-                <Link to="/perfil" className="nav-item profile-link">Mi Perfil</Link>
+                <Link to="/perfil" className="nav-item profile-link"><FormattedMessage id='Mi Perfil'/></Link>
 
                 {/* Enlace ancla a sección Inicio, con manejador para registro en consola */}
-                <Link to="/" className="nav-item">Inicio</Link>
+                <Link to="/" className="nav-item"><FormattedMessage id='Inicio'/></Link>
 
                 {/* Enlace a página para vender productos */}
-                <Link to="/vender" className="nav-item">Vender</Link>
+                <Link to="/vender" className="nav-item"><FormattedMessage id='Vender'/></Link>
 
                 {/* Enlace ancla a sección Comprar */}
-                <Link to="/comprar" className="nav-item">Comprar</Link>
+                <Link to="/comprar" className="nav-item"><FormattedMessage id='Comprar'/></Link>
 
                 {/* Botón para iniciar sesión que redirige a una URL externa */}
                 <button 
                     className="nav-item login-btn">
-                    <Link to="/login" className="nav-item">Inicia sesion</Link>
+                    <Link to="/login" className="nav-log"><FormattedMessage id='Iniciar Sesion'/></Link>
                 </button>
             </div>
         </div>

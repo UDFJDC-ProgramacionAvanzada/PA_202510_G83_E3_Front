@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import './login.css';
+import { FormattedMessage } from 'react-intl';
+import { useNavigate } from 'react-router-dom'; // Importar el hook
 
 function LoginPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +15,7 @@ function LoginPage() {
 
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState('');
+    const navigate = useNavigate(); // Hook de navegación
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,26 +23,26 @@ function LoginPage() {
         setLoginSuccess('');
 
         if (isLogin) {
-            // Lógica de login con usuario de prueba
             if (formData.email === 'admin' && formData.password === '123456') {
-                setLoginSuccess('¡Bienvenido! Login exitoso');
+                setLoginSuccess('login.success');
                 console.log('Login exitoso para usuario admin');
-                // Aquí podrías redirigir al dashboard o página principal
+                // Redirigir al inicio tras éxito
+                setTimeout(() => {
+                    navigate('/');
+                }, 1000);
             } else {
-                setLoginError('Usuario o contraseña incorrectos.');
+                setLoginError('login.error');
             }
         } else {
-            // Lógica de registro
             if (formData.name && formData.email && formData.password) {
-                setLoginSuccess('¡Cuenta creada exitosamente! Ahora puedes iniciar sesión');
+                setLoginSuccess('register.success');
                 console.log('Registro exitoso:', formData);
-                // Cambiar a modo login después del registro
                 setTimeout(() => {
                     setIsLogin(true);
                     setLoginSuccess('');
                 }, 2000);
             } else {
-                setLoginError('Por favor completa todos los campos');
+                setLoginError('register.error');
             }
         }
     };
@@ -54,118 +57,122 @@ function LoginPage() {
     return (
         <div className="login-container">
             <div className="login-card">
-                {/* Header */}
+                {/* Encabezado */}
                 <div className="login-header">
                     <div className="logo-circle">
                         <User className="logo-icon" />
                     </div>
                     <h2 className="login-title">
-                        {isLogin ? 'Bienvenido' : 'Crear Cuenta'}
+                        <FormattedMessage id={isLogin ? 'login.welcome' : 'register.title'} />
                     </h2>
                     <p className="login-subtitle">
-                        {isLogin ? 'Ingresa a tu cuenta' : 'Regístrate para comenzar'}
+                        <FormattedMessage id={isLogin ? 'login.subtitle' : 'register.subtitle'} />
                     </p>
-
                 </div>
 
-                {/* Formulario */}
                 <div className="form-container">
-                    {/* Mensajes de error y éxito */}
+                    {/* Mensajes */}
                     {loginError && (
                         <div className="message error-message">
-                            {loginError}
+                            <FormattedMessage id={loginError} />
                         </div>
                     )}
                     {loginSuccess && (
                         <div className="message success-message">
-                            {loginSuccess}
+                            <FormattedMessage id={loginSuccess} />
                         </div>
                     )}
 
-                    {/* Campo de nombre (solo en registro) */}
+                    {/* Campo nombre */}
                     {!isLogin && (
                         <div className="input-group">
                             <div className="input-icon">
                                 <User className="icon" />
                             </div>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Nombre completo"
-                                value={formData.name}
-                                onChange={handleInputChange}
-                                className="form-input"
-                                required={!isLogin}
-                            />
+                            <FormattedMessage id="register.name.placeholder">
+                                {msg => (
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder={msg}
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                        className="form-input"
+                                        required={!isLogin}
+                                    />
+                                )}
+                            </FormattedMessage>
                         </div>
                     )}
 
-                    {/* Campo de correo */}
+                    {/* Campo correo */}
                     <div className="input-group">
                         <div className="input-icon">
                             <Mail className="icon" />
                         </div>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder={isLogin ? "Usuario o correo electrónico" : "Correo electrónico"}
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            className="form-input"
-                            required
-                        />
+                        <FormattedMessage id={isLogin ? 'login.email.placeholder' : 'register.email.placeholder'}>
+                            {msg => (
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder={msg}
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    className="form-input"
+                                    required
+                                />
+                            )}
+                        </FormattedMessage>
                     </div>
 
-                    {/* Campo de contraseña */}
+                    {/* Campo contraseña */}
                     <div className="input-group">
                         <div className="input-icon">
                             <Lock className="icon" />
                         </div>
-                        <input
-                            type={showPassword ? 'text' : 'password'}
-                            name="password"
-                            placeholder="Contraseña"
-                            value={formData.password}
-                            onChange={handleInputChange}
-                            className="form-input password-input"
-                            required
-                        />
+                        <FormattedMessage id="password.placeholder">
+                            {msg => (
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    name="password"
+                                    placeholder={msg}
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                    className="form-input password-input"
+                                    required
+                                />
+                            )}
+                        </FormattedMessage>
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
                             className="password-toggle"
                         >
-                            {showPassword ? (
-                                <EyeOff className="toggle-icon" />
-                            ) : (
-                                <Eye className="toggle-icon" />
-                            )}
+                            {showPassword ? <EyeOff className="toggle-icon" /> : <Eye className="toggle-icon" />}
                         </button>
                     </div>
 
-                    {/* ¿Olvidaste tu contraseña? (solo en login) */}
                     {isLogin && (
                         <div className="forgot-password">
                             <button type="button" className="forgot-link">
-                                ¿Olvidaste tu contraseña?
+                                <FormattedMessage id="login.forgot" />
                             </button>
                         </div>
                     )}
 
                     <button onClick={handleSubmit} className="submit-button">
-                        {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
+                        <FormattedMessage id={isLogin ? 'login.button' : 'register.button'} />
                     </button>
                 </div>
 
-                {/* Cambiar entre login y registro */}
                 <div className="toggle-section">
                     <p className="toggle-text">
-                        {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}
+                        <FormattedMessage id={isLogin ? 'register.prompt' : 'login.prompt'} />{' '}
                         <button
                             onClick={() => setIsLogin(!isLogin)}
                             className="toggle-link"
                         >
-                            {isLogin ? 'Regístrate' : 'Inicia sesión'}
+                            <FormattedMessage id={isLogin ? 'register.link' : 'login.link'} />
                         </button>
                     </p>
                 </div>

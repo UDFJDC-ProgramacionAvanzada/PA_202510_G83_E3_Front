@@ -176,9 +176,6 @@ const AnuncioStand = () => {
       <div className="mensaje-productos">
         <p>aca debe seguir si hay mas productos</p>
       </div>
-
-      {/* Footer con información y enlaces de pie de página */}
-      <Footer />
     </div>
   );
 };

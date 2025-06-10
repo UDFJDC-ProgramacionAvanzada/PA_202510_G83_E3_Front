@@ -1,73 +1,56 @@
-/* HU11.css */
-
-.registro-vendedor-container {
-  padding: 30px;
-  background-color: #f8f8f8;
-  border-radius: 12px;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: Poppins, sans-serif;
+.hu12-container {
+    margin-top: 30px;
+    background-color: #fefefe;
+    border: 2px solid #FF6B35;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    font-family: Poppins, sans-serif;
 }
 
-.titulo-registro {
-  font-size: 1.8rem;
-  color: #3A5BA0;
-  font-weight: bold;
-  margin-bottom: 25px;
-  text-align: center;
+.hu12-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.formulario-registro {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.hu12-form input[type="text"],
+.hu12-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
 }
 
-.formulario-registro label {
-  font-weight: 500;
-  font-size: 1rem;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.hu12-form textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
-.formulario-registro input,
-.formulario-registro textarea {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  resize: vertical;
-  font-family: Poppins, sans-serif;
+.hu12-form input[type="file"] {
+    font-size: 0.9rem;
 }
 
-.formulario-registro textarea {
-  min-height: 100px;
+.hu12-preview {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 10px;
 }
 
-.boton-enviar {
-  background-color: #FF6B35;
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  align-self: flex-end;
+.hu12-form button {
+    background-color: #3A5BA0;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.boton-enviar:hover {
-  background-color: #e85d2d;
-}
-
-.mensaje-exito {
-  font-size: 1.2rem;
-  color: green;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
+.hu12-form button:hover {
+    background-color: #2e477a;
 }

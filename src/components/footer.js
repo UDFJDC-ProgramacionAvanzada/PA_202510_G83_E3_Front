@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft } from 'lucide-react';
 // Hook de React Router para navegar programáticamente
 import { useNavigate } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 function Footer() {
   // Inicializa el hook para navegación
@@ -55,10 +56,10 @@ function Footer() {
 
         {/* Sección derecha - Enlaces adicionales */}
         <div className="links-section">
-          <span className="footer-link">MÁS SOBRE NOSOTROS</span>
-          <span className="footer-link">AYUDA</span>
-          <span className="language-text">Idioma: Español</span>
-          <span className="terms-text">Terms & Conditions</span>
+          <span className="footer-link"><FormattedMessage id='MÁS SOBRE NOSOTROS'/></span>
+          <span className="footer-link"><FormattedMessage id='AYUDA'/></span>
+          <span className="language-text"><FormattedMessage id='Idioma: Español'/></span>
+          <span className="terms-text"><FormattedMessage id='Terminos y condiciones'/></span>
         </div>
 
       </div>

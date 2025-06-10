@@ -1,0 +1,19 @@
+.contenido-horizontal {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Si necesitas que se acomode en pantallas pequeñas */
+  margin-top: 2rem;
+  padding: 0 2rem;
+}
+
+.sugerencias-container {
+  flex: 1;
+  max-width: 600px;
+  margin-right: 2rem;
+}
+
+.mapa-container {
+  flex: 1;
+  max-width: 600px;
+}

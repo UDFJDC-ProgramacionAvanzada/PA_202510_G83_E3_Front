@@ -2,9 +2,10 @@ import './Vender.css';
 import { FormattedMessage } from 'react-intl';
 import "../localizacion/EN.json";
 import { Link } from 'react-router-dom';
-import Footer from '../components/footer.js';
 import { useState } from 'react';
-import HU11 from '../components/HU11'; // Asegúrate que la ruta sea correcta
+import HU11 from '../components/HU11';
+import HU12 from '../components/HU12';
+import ProductosVendidos from '../components/ProductosVendidos';
 
 function Vender() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,7 +14,10 @@ function Vender() {
         usuario: '',
         password: ''
     });
-    const [showHU11, setShowHU11] = useState(false); // Estado para mostrar HU11
+
+    const [mostrarHU11, setMostrarHU11] = useState(false);
+    const [mostrarHU12, setMostrarHU12] = useState(false);
+    const [mostrarProductosVendidos, setMostrarProductosVendidos] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -30,7 +34,6 @@ function Vender() {
             setShowError(true);
             return;
         }
-
         if (formData.usuario === 'admin' && formData.password === '123456') {
             setIsLoggedIn(true);
             setShowError(false);
@@ -44,7 +47,9 @@ function Vender() {
         setIsLoggedIn(false);
         setFormData({ usuario: '', password: '' });
         setShowError(false);
-        setShowHU11(false);
+        setMostrarHU11(false);
+        setMostrarHU12(false);
+        setMostrarProductosVendidos(false);
     };
 
     return (
@@ -58,32 +63,43 @@ function Vender() {
             <div className='profile-container'>
                 {!isLoggedIn ? (
                     <div className='login-container'>
-                        <h2 className='login-title'> Inicia sesión </h2>
+                        <h2 className='login-title'>
+                            <FormattedMessage id="login.title" defaultMessage="Inicia sesión" />
+                        </h2>
                         <form className='formulario_inicio' onSubmit={handleLogin}>
-                            <input
-                                type="text"
-                                name="usuario"
-                                className='input-user'
-                                placeholder='Usuario'
-                                value={formData.usuario}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="password"
-                                name="password"
-                                className='input-password'
-                                placeholder='Contraseña'
-                                value={formData.password}
-                                onChange={handleInputChange}
-                            />
+                            <FormattedMessage id="login.username" defaultMessage="Usuario">
+                                {msg => (
+                                    <input
+                                        type="text"
+                                        name="usuario"
+                                        className='input-user'
+                                        placeholder={msg}
+                                        value={formData.usuario}
+                                        onChange={handleInputChange}
+                                    />
+                                )}
+                            </FormattedMessage>
+                            <FormattedMessage id="login.password" defaultMessage="Contraseña">
+                                {msg => (
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className='input-password'
+                                        placeholder={msg}
+                                        value={formData.password}
+                                        onChange={handleInputChange}
+                                    />
+                                )}
+                            </FormattedMessage>
                             <button type="submit" className='btn-login'>
-                                Iniciar Sesión
+                                <FormattedMessage id="login.button" defaultMessage="Iniciar Sesión" />
                             </button>
                         </form>
+
                         {showError && (
                             <div className='error-message'>
                                 <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>
-                                    Error: Credenciales incorrectas o campos vacíos
+                                    <FormattedMessage id="login.error" defaultMessage="Error: Credenciales incorrectas o campos vacíos" />
                                 </p>
                             </div>
                         )}
@@ -91,9 +107,11 @@ function Vender() {
                 ) : (
                     <>
                         <div className='welcome-message'>
-                            <p>¡Bienvenido, {formData.usuario}!</p>
+                            <p>
+                                <FormattedMessage id="login.welcomeUser" defaultMessage="¡Bienvenido, {usuario}!" values={{ usuario: formData.usuario }} />
+                            </p>
                             <button onClick={handleLogout} className='btn-logout'>
-                                Cerrar Sesión
+                                <FormattedMessage id="logout.button" defaultMessage="Cerrar Sesión" />
                             </button>
                         </div>
 
@@ -101,25 +119,40 @@ function Vender() {
                             <Link to="/stands" className='stands'>
                                 <FormattedMessage id='Stand' />
                             </Link>
-                            <button className='productos'>
+
+                            <button className='productos' onClick={() => {
+                                setMostrarProductosVendidos(true);
+                                setMostrarHU11(false);
+                                setMostrarHU12(false);
+                            }}>
                                 <FormattedMessage id='Productos_que_ya_se_estan_vendiendo' />
                             </button>
-                            <button
-                                className='publicar'
-                                onClick={() => setShowHU11(true)}
-                            >
+
+                            <button className='publicar' onClick={() => {
+                                setMostrarHU12(true);
+                                setMostrarHU11(false);
+                                setMostrarProductosVendidos(false);
+                            }}>
                                 <FormattedMessage id='Publicar_nuevo_emprendimiento' />
                             </button>
+
+                            <button className='nuevo-producto' onClick={() => {
+                                setMostrarHU11(true);
+                                setMostrarHU12(false);
+                                setMostrarProductosVendidos(false);
+                            }}>
+                                <FormattedMessage id="Agregar_nuevo_producto" defaultMessage="Agregar nuevo producto" />
+                            </button>
+
                             <button className='universidades'>
                                 <FormattedMessage id='Universidad' />
                             </button>
                         </div>
 
-                        {showHU11 && (
-                            <div style={{ marginTop: '40px', width: '100%' }}>
-                                <HU11 />
-                            </div>
-                        )}
+                        {/* Mostrar componente correspondiente según selección */}
+                        {mostrarHU11 && <HU11 />}
+                        {mostrarHU12 && <HU12 />}
+                        {mostrarProductosVendidos && <ProductosVendidos />}
                     </>
                 )}
             </div>

@@ -40,6 +40,15 @@
     cursor: pointer;
 }
 
+.error-message {
+    margin-top: 20px;
+    background-color: #FF6B35; /* elimina fondo blanco */
+    padding: 10px; /* opcional: elimina espacio interno */ /* opcional: elimina cualquier borde */
+    text-align: center; /* centra el texto si lo necesitas */
+    border-radius: 20px;
+    border-color: #FF6B35; /* elimina borde */
+    border: 5px solid; 
+}
 
 .profile-container {
     display: flex;
@@ -99,6 +108,7 @@
     flex: 1;
     min-width: 250px;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .formulario_inicio {

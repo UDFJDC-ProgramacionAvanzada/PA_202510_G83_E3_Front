@@ -1,10 +1,11 @@
 .navbar1 {
     background-color: #fff;
-    padding: 10px 20px;
+    padding: 10px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .Nombre {
@@ -14,10 +15,19 @@
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
-    padding: 0px 10px 0px 0px;
+    padding: 0;
 }
 
-  /* Estilos del menú hamburguesa (solo visible en móvil) */
+/* Contenedor principal de navegación */
+.nav-links {
+    display: flex;
+    align-items: right;
+    gap: 30px;
+    flex: 1;
+    justify-content: center;
+}
+
+/* Estilos del menú hamburguesa (solo visible en móvil) */
 .hamburger {
     display: none;
     font-size: 30px;
@@ -25,69 +35,122 @@
     color: #3A5BA0;
 }
 
-  /* Estilos para cada elemento del menú */
+/* Estilos para cada elemento del menú */
 .nav-item {
-        color: #3A5BA0;
-        text-align: center;
-        padding: 10px 16px;
-        text-decoration: none;
-        font-size: 20px;
-        font-family: "Poppins", sans-serif;
+    color: #3A5BA0;
+    text-align: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+}
+
+.nav-log {
+    color: #ffffff;
+    text-align: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.3s ease;
+}
+
+/* Sección derecha con perfil y login */
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-link {
+    color: #3A5BA0;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    padding: 8px 16px;
 }
 
 .login-btn {
     font-family: "Poppins", sans-serif;
-    color: #000;
-    font-size: 20px;
+    color: #fff;
+    font-size: 16px;
     font-weight: bold;
     background-color: #FF6B35;
     cursor: pointer;
-    border-radius: 12px;
+    border-radius: 8px;
     border: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
 }
 
-.nav-item:hover {
+.nav-item:hover,
+.profile-link:hover {
     color: rgb(65, 10, 78);
     text-decoration: underline;
 }
 
-  /* Media queries para diseño responsive */
+.login-btn:hover {
+    background-color: #e55a2b;
+}
+
+/* Media queries para diseño responsive */
 @media (max-width: 768px) {
     .hamburger {
-    display: block;
-    }
-    
-    .left-section, .right-section {
-    width: 100%;
+        display: block;
     }
     
     .nav-links {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 10px;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        flex-direction: column;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        padding: 20px 0;
     }
     
     .right-section {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    margin-top: 10px;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        flex-direction: column;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        padding: 20px;
+        margin-top: 200px; /* Ajustar según altura del nav-links */
     }
     
-    .nav-links.active, .right-section.active {
-    display: flex;
+    .nav-links.active {
+        display: flex;
     }
     
-    .nav-item, .profile-link, .login-btn {
-    width: 100%;
-    text-align: left;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    .right-section.active {
+        display: flex;
+    }
+    
+    .nav-item, 
+    .profile-link {
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
     }
     
     .login-btn {
-    margin-top: 10px;
+        width: 90%;
+        margin: 10px auto;
+        text-align: center;
+    }
+    
+    .navbar1 {
+        position: relative;
+        padding: 15px 20px;
     }
 }

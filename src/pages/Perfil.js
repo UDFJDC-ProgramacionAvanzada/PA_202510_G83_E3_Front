@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import './Perfil.css';
 import HU04 from '../components/HU04';
 import HU10 from '../components/HU10';
 
-// Componente especializado para favoritos de vender (SRP)
 const FavoritosVender = () => {
   const favoritosVender = [
     'Stand 10 UD Calle 40',
@@ -12,7 +12,7 @@ const FavoritosVender = () => {
 
   return (
     <div className="favoritos-section-vender">
-      <h3>Favoritos</h3>
+      <h3><FormattedMessage id="perfil.favoritos" /></h3>
       {favoritosVender.map((nombre, index) => (
         <div key={index} className="favorito-item">
           <span>{nombre}</span>
@@ -23,53 +23,67 @@ const FavoritosVender = () => {
   );
 };
 
-// Componente para manejar formulario de usuario (SRP)
 const UserForm = ({ formData, onChange }) => (
   <div className="user-details">
     <div className="detail-item">
-      <label>Nombre</label>
-      <input 
-        type="text" 
-        className="detail-input"
-        value={formData.nombre}
-        onChange={(e) => onChange('nombre', e.target.value)}
-        placeholder="Ingresa tu nombre"
-      />
+      <label><FormattedMessage id="perfil.nombre" /></label>
+      <FormattedMessage id="perfil.placeholder.nombre">
+        {msg => (
+          <input 
+            type="text" 
+            className="detail-input"
+            value={formData.nombre}
+            onChange={(e) => onChange('nombre', e.target.value)}
+            placeholder={msg}
+          />
+        )}
+      </FormattedMessage>
     </div>
     <div className="detail-item">
-      <label>Número de teléfono</label>
-      <input 
-        type="tel" 
-        className="detail-input"
-        value={formData.telefono}
-        onChange={(e) => onChange('telefono', e.target.value)}
-        placeholder="Ej: (+57) 3228995695"
-      />
+      <label><FormattedMessage id="perfil.telefono" /></label>
+      <FormattedMessage id="perfil.placeholder.telefono">
+        {msg => (
+          <input 
+            type="tel" 
+            className="detail-input"
+            value={formData.telefono}
+            onChange={(e) => onChange('telefono', e.target.value)}
+            placeholder={msg}
+          />
+        )}
+      </FormattedMessage>
     </div>
     <div className="detail-item">
-      <label>Correo</label>
-      <input 
-        type="email" 
-        className="detail-input"
-        value={formData.correo}
-        onChange={(e) => onChange('correo', e.target.value)}
-        placeholder="Ej: tumail@gmail.com"
-      />
+      <label><FormattedMessage id="perfil.correo" /></label>
+      <FormattedMessage id="perfil.placeholder.correo">
+        {msg => (
+          <input 
+            type="email" 
+            className="detail-input"
+            value={formData.correo}
+            onChange={(e) => onChange('correo', e.target.value)}
+            placeholder={msg}
+          />
+        )}
+      </FormattedMessage>
     </div>
     <div className="detail-item">
-      <label>Nombre emprendimiento</label>
-      <input 
-        type="text" 
-        className="detail-input"
-        value={formData.emprendimiento}
-        onChange={(e) => onChange('emprendimiento', e.target.value)}
-        placeholder="Ej: Mi emprendimiento"
-      />
+      <label><FormattedMessage id="perfil.emprendimiento" /></label>
+      <FormattedMessage id="perfil.placeholder.emprendimiento">
+        {msg => (
+          <input 
+            type="text" 
+            className="detail-input"
+            value={formData.emprendimiento}
+            onChange={(e) => onChange('emprendimiento', e.target.value)}
+            placeholder={msg}
+          />
+        )}
+      </FormattedMessage>
     </div>
   </div>
 );
 
-// Componente para renderizar contenido según modo (OCP mejorado)
 const StandsContent = ({ mode }) => {
   const renderMode = {
     comprar: () => <HU04 />,
@@ -104,17 +118,15 @@ const Perfil = () => {
   const handleModeChange = (e) => {
     setStandsMode(e.target.value);
   };
+
   return (
     <div className="perfil-container">
-      {/* Header azul con título */}
       <div className="perfil-header">
-        <h1>Mi perfil</h1>
+        <h1><FormattedMessage id="perfil.titulo" /></h1>
       </div>
 
       <div className="perfil-content">
-        {/* Sección izquierda: Información del usuario */}
         <div className="user-info-section">
-          {/* Avatar circular */}
           <div className="user-avatar">
             <div className="avatar-circle">
               <div className="avatar-icon"></div>
@@ -122,17 +134,18 @@ const Perfil = () => {
           </div>
 
           <UserForm formData={formData} onChange={handleInputChange} />
-
-
         </div>
 
-        {/* Sección derecha: Stands del usuario */}
         <div className="stands-section">
           <div className="stands-card">
-            <h2>Tus Stands</h2>
+            <h2><FormattedMessage id="perfil.stands.titulo" /></h2>
             <select className="stands-dropdown" value={standsMode} onChange={handleModeChange}>
-              <option value="comprar">Para comprar</option>
-              <option value="vender">Para vender</option>
+              <option value="comprar">
+                <FormattedMessage id="perfil.stands.comprar" />
+              </option>
+              <option value="vender">
+                <FormattedMessage id="perfil.stands.vender" />
+              </option>
             </select>
 
             <StandsContent mode={standsMode} />

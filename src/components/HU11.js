@@ -1,85 +1,55 @@
-// HU11.js
 import React, { useState } from 'react';
-import './HU11.css'; // Importa tu nuevo archivo de estilos
+import './HU12.css';
 
-const HU11 = () => {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    descripcion: '',
-    universidad: '',
-    correo: '',
-  });
+function HU12() {
+    const [nombreProducto, setNombreProducto] = useState('');
+    const [descripcion, setDescripcion] = useState('');
+    const [imagen, setImagen] = useState(null);
 
-  const [enviado, setEnviado] = useState(false);
+    const handleImagenChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImagen(URL.createObjectURL(file));
+        }
+    };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!nombreProducto || !descripcion || !imagen) {
+            alert("Por favor completa todos los campos.");
+            return;
+        }
+        alert("¡Producto publicado exitosamente!");
+        setNombreProducto('');
+        setDescripcion('');
+        setImagen(null);
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Formulario enviado:', formData);
-    setEnviado(true);
-    // Aquí podrías enviar los datos a una API
-  };
+    return (
+        <div className="hu12-container">
+            <h2>Agregar nuevo producto</h2>
+            <form onSubmit={handleSubmit} className="hu12-form">
+                <input 
+                    type="text" 
+                    placeholder="Nombre del producto" 
+                    value={nombreProducto}
+                    onChange={(e) => setNombreProducto(e.target.value)}
+                />
+                <textarea 
+                    placeholder="Descripción del producto" 
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                />
+                <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleImagenChange}
+                />
+                {imagen && <img src={imagen} alt="Vista previa" className="hu12-preview" />}
+                <button type="submit">Publicar producto</button>
+            </form>
+        </div>
+    );
+}
 
-  return (
-    <div className="registro-vendedor-container">
-      <h2 className="titulo-registro">Registro de nuevo emprendimiento</h2>
-      
-      {enviado ? (
-        <p className="mensaje-exito">¡Gracias! Tu emprendimiento ha sido registrado.</p>
-      ) : (
-        <form className="formulario-registro" onSubmit={handleSubmit}>
-          <label>
-            Nombre del emprendimiento:
-            <input
-              type="text"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Descripción:
-            <textarea
-              name="descripcion"
-              value={formData.descripcion}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Universidad:
-            <input
-              type="text"
-              name="universidad"
-              value={formData.universidad}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Correo de contacto:
-            <input
-              type="email"
-              name="correo"
-              value={formData.correo}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <button type="submit" className="boton-enviar">Enviar</button>
-        </form>
-      )}
-    </div>
-  );
-};
-
-export default HU11;
+export default HU12;
