@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Phone  } from 'lucide-react';
 import './login.css';
 import { FormattedMessage } from 'react-intl';
-import { useNavigate } from 'react-router-dom'; // Importar el hook
+import { useNavigate } from 'react-router-dom';
+import authService from '../services/authService'; // Importar el servicio
 
 function LoginPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -15,35 +16,72 @@ function LoginPage() {
 
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState('');
-    const navigate = useNavigate(); // Hook de navegación
+    const [loading, setLoading] = useState(false); // Estado de carga
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoginError('');
         setLoginSuccess('');
+        setLoading(true);
 
-        if (isLogin) {
-            if (formData.email === 'admin' && formData.password === '123456') {
-                setLoginSuccess('login.success');
-                console.log('Login exitoso para usuario admin');
-                // Redirigir al inicio tras éxito
-                setTimeout(() => {
-                    navigate('/');
-                }, 1000);
+        try {
+            if (isLogin) {
+                // LOGIN
+                const response = await authService.login(formData.email, formData.password);
+                
+                if (response.success) {
+                    setLoginSuccess('login.success');
+                    console.log('Login exitoso:', response.user);
+                    
+                    // Redirigir después de 1 segundo
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 1000);
+                }
             } else {
-                setLoginError('login.error');
+                // REGISTRO
+                const response = await authService.register(
+                    formData.name, 
+                    formData.email, 
+                    formData.password
+                );
+                
+                if (response.success) {
+                    setLoginSuccess('register.success');
+                    console.log('Registro exitoso');
+                    
+                    // Cambiar a modo login después de 2 segundos
+                    setTimeout(() => {
+                        setIsLogin(true);
+                        setLoginSuccess('');
+                        setFormData({
+                            email: formData.email, // Mantener el email
+                            password: '',
+                            name: ''
+                        });
+                    }, 2000);
+                }
             }
-        } else {
-            if (formData.name && formData.email && formData.password) {
-                setLoginSuccess('register.success');
-                console.log('Registro exitoso:', formData);
-                setTimeout(() => {
-                    setIsLogin(true);
-                    setLoginSuccess('');
-                }, 2000);
+        } catch (error) {
+            console.error('Error:', error);
+            
+            // Manejar diferentes tipos de errores
+            if (error.message) {
+                // Si el backend envió un mensaje específico
+                if (error.message.includes('Credenciales')) {
+                    setLoginError('login.error');
+                } else if (error.message.includes('ya está registrado')) {
+                    setLoginError('register.email.exists');
+                } else {
+                    setLoginError(isLogin ? 'login.error' : 'register.error');
+                }
             } else {
-                setLoginError('register.error');
+                // Error de conexión
+                setLoginError('connection.error');
             }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -52,6 +90,8 @@ function LoginPage() {
             ...formData,
             [e.target.name]: e.target.value
         });
+        // Limpiar errores cuando el usuario escribe
+        setLoginError('');
     };
 
     return (
@@ -70,11 +110,17 @@ function LoginPage() {
                     </p>
                 </div>
 
-                <div className="form-container">
+                <form onSubmit={handleSubmit} className="form-container">
                     {/* Mensajes */}
                     {loginError && (
                         <div className="message error-message">
-                            <FormattedMessage id={loginError} />
+                            <FormattedMessage 
+                                id={loginError} 
+                                defaultMessage={loginError === 'connection.error' ? 
+                                    'Error de conexión con el servidor' : 
+                                    'Ha ocurrido un error'
+                                } 
+                            />
                         </div>
                     )}
                     {loginSuccess && (
@@ -83,7 +129,7 @@ function LoginPage() {
                         </div>
                     )}
 
-                    {/* Campo nombre */}
+                    {/* Campo nombre (solo en registro) */}
                     {!isLogin && (
                         <div className="input-group">
                             <div className="input-icon">
@@ -99,6 +145,7 @@ function LoginPage() {
                                         onChange={handleInputChange}
                                         className="form-input"
                                         required={!isLogin}
+                                        disabled={loading}
                                     />
                                 )}
                             </FormattedMessage>
@@ -120,6 +167,7 @@ function LoginPage() {
                                     onChange={handleInputChange}
                                     className="form-input"
                                     required
+                                    disabled={loading}
                                 />
                             )}
                         </FormattedMessage>
@@ -140,6 +188,7 @@ function LoginPage() {
                                     onChange={handleInputChange}
                                     className="form-input password-input"
                                     required
+                                    disabled={loading}
                                 />
                             )}
                         </FormattedMessage>
@@ -147,30 +196,64 @@ function LoginPage() {
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
                             className="password-toggle"
-                        >.
+                            disabled={loading}
+                        >
                             {showPassword ? <EyeOff className="toggle-icon" /> : <Eye className="toggle-icon" />}
                         </button>
+                    </div>
+                    
+                    <div className="input-group">
+                        <div className="input-icon">
+                            <Phone  className="icon" />
+                        </div>
+                        <FormattedMessage id="phone.placeholder">
+                            {msg => (
+                                <input
+                                    type="text"
+                                    name="phoneNumber"
+                                    placeholder={msg}
+                                    value={formData.phoneNumber}
+                                    onChange={handleInputChange}
+                                    className="form-input"
+                                    required={!isLogin}
+                                    disabled={loading}
+                                />
+                            )}
+                        </FormattedMessage>
                     </div>
 
                     {isLogin && (
                         <div className="forgot-password">
-                            <button type="button" className="forgot-link">
+                            <button type="button" className="forgot-link" disabled={loading}>
                                 <FormattedMessage id="login.forgot" />
                             </button>
                         </div>
                     )}
 
-                    <button onClick={handleSubmit} className="submit-button">
-                        <FormattedMessage id={isLogin ? 'login.button' : 'register.button'} />
+                    <button 
+                        type="submit" 
+                        className={`submit-button ${loading ? 'loading' : ''}`}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <span>Procesando...</span>
+                        ) : (
+                            <FormattedMessage id={isLogin ? 'login.button' : 'register.button'} />
+                        )}
                     </button>
-                </div>
+                </form>
 
                 <div className="toggle-section">
                     <p className="toggle-text">
                         <FormattedMessage id={isLogin ? 'register.prompt' : 'login.prompt'} />{' '}
                         <button
-                            onClick={() => setIsLogin(!isLogin)}
+                            onClick={() => {
+                                setIsLogin(!isLogin);
+                                setLoginError('');
+                                setLoginSuccess('');
+                            }}
                             className="toggle-link"
+                            disabled={loading}
                         >
                             <FormattedMessage id={isLogin ? 'register.link' : 'login.link'} />
                         </button>

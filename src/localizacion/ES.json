@@ -48,6 +48,7 @@
 "login.email.placeholder": "Usuario o correo",
 "register.email.placeholder": "Correo electrónico",
 "password.placeholder": "Contraseña",
+"phone.placeholder": "Número de teléfono",
 "login.forgot": "¿Olvidaste tu contraseña?",
 "login.button": "Iniciar Sesión",
 "register.button": "Registrarse",
