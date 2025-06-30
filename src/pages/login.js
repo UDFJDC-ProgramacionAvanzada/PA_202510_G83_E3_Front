@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, Phone } from 'lucide-react';
 import './login.css';
 import { FormattedMessage } from 'react-intl';
-import { useNavigate, useLocation } from 'react-router-dom'; // Agregar useLocation
-import authService from '../services/authService'; // Solo para registro
+import { useNavigate, useLocation } from 'react-router-dom';
+import authService from '../services/authService';
 import { useAuth } from '../contexts/AuthContext';
 
 function LoginPage() {
@@ -12,7 +12,7 @@ function LoginPage() {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        name: '',
+        nombre: '',        // ✅ Cambiar 'name' por 'nombre'
         phoneNumber: ''
     });
 
@@ -21,8 +21,8 @@ function LoginPage() {
     const [loading, setLoading] = useState(false);
     
     const navigate = useNavigate();
-    const location = useLocation(); // Agregar para obtener la página anterior
-    const { login } = useAuth(); // Usar el contexto para login
+    const location = useLocation();
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,25 +30,26 @@ function LoginPage() {
         setLoginSuccess('');
         setLoading(true);
 
+        console.log('Datos del formulario:', formData);
+        console.log('¿Es registro?', !isLogin);
         try {
             if (isLogin) {
-                // LOGIN - usar el contexto en lugar de authService
+                // LOGIN - usar el contexto
                 const response = await login(formData.email, formData.password);
                 
                 if (response.success) {
                     setLoginSuccess('login.success');
                     console.log('Login exitoso:', response.user);
                     
-                    // Redirigir a la página anterior o a home
                     const from = location.state?.from?.pathname || '/';
                     setTimeout(() => {
                         navigate(from, { replace: true });
                     }, 1000);
                 }
             } else {
-                // REGISTRO - mantener usando authService directamente
+                // REGISTRO - usar authService con nombres correctos
                 const response = await authService.register(
-                    formData.name, 
+                    formData.nombre,      // ✅ Usar 'nombre' en lugar de 'name'
                     formData.email, 
                     formData.password,
                     formData.phoneNumber
@@ -63,9 +64,9 @@ function LoginPage() {
                         setIsLogin(true);
                         setLoginSuccess('');
                         setFormData({
-                            email: formData.email, // Mantener el email
+                            email: formData.email,
                             password: '',
-                            name: '',
+                            nombre: '',       // ✅ Resetear 'nombre'
                             phoneNumber: ''
                         });
                     }, 2000);
@@ -76,7 +77,6 @@ function LoginPage() {
             
             // Manejar diferentes tipos de errores
             if (error.message) {
-                // Si el backend envió un mensaje específico
                 if (error.message.includes('Credenciales')) {
                     setLoginError('login.error');
                 } else if (error.message.includes('ya está registrado')) {
@@ -85,7 +85,6 @@ function LoginPage() {
                     setLoginError(isLogin ? 'login.error' : 'register.error');
                 }
             } else {
-                // Error de conexión
                 setLoginError('connection.error');
             }
         } finally {
@@ -98,7 +97,6 @@ function LoginPage() {
             ...formData,
             [e.target.name]: e.target.value
         });
-        // Limpiar errores cuando el usuario escribe
         setLoginError('');
     };
 
@@ -147,9 +145,9 @@ function LoginPage() {
                                 {msg => (
                                     <input
                                         type="text"
-                                        name="name"
+                                        name="nombre"           // ✅ Cambiar name por nombre
                                         placeholder={msg}
-                                        value={formData.name}
+                                        value={formData.nombre} // ✅ Usar formData.nombre
                                         onChange={handleInputChange}
                                         className="form-input"
                                         required={!isLogin}
