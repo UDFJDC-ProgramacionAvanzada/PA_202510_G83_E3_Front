@@ -29,12 +29,13 @@ const authService = {
     },
 
     // Registro
-    register: async (nombre, email, password) => {
+    register: async (nombre, email, password, phoneNumber) => {
         try {
         const response = await axios.post(`${API_URL}/register`, {
             nombre,
             email,
-            password
+            password,
+            phoneNumber
         });
         
         return response.data;

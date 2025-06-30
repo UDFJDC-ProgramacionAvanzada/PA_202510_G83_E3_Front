@@ -1,6 +1,6 @@
-// App.js
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import Inicio from './pages/Inicio';
 import Vender from './pages/Vender';
 import StandsFunc from './pages/stands';
@@ -12,31 +12,41 @@ import detectLanguage from './localizacion/detectarlenguaje';
 import Loginpage from './pages/login';
 import Comprar from './pages/Comprar';
 import Terms from './pages/Terms';
+import ProtectedRoute from './components/ProtectedRoute1'; // Importar el componente específico
 
 function App() {
-    // Detectar idioma del navegador y obtener mensajes traducidos
     const { locale, messages } = detectLanguage();
 
     return (
-        // Proveedor de contexto de internacionalización
-        <IntlProvider locale={locale} messages={messages}>
-            <Routes>
-                {/* Rutas que comparten el layout con footer */}
-                <Route element={<LayoutWithFooter />}>
-                    <Route path="/" element={<Inicio />} />
-                    <Route path="/vender" element={<Vender />} />
-                    <Route path="/anuncio-stand" element={<AnuncioStand />} />
-                    <Route path="/comprar" element={<Comprar />} />
-                    <Route path="/terms" element={<Terms />} />
-                </Route>
+        <AuthProvider>
+            <Router>
+                <IntlProvider locale={locale} messages={messages}>
+                    <Routes>
+                        {/* Ruta de login - NO protegida */}
+                        <Route path="/login" element={<Loginpage />} />
+                        
+                        {/* Rutas que comparten el layout con footer - TODAS SIN PROTECCIÓN */}
+                        <Route element={<LayoutWithFooter />}>
+                            <Route path="/" element={<Inicio />} />
+                            <Route path="/vender" element={<Vender />} />
+                            <Route path="/anuncio-stand" element={<AnuncioStand />} />
+                            <Route path="/comprar" element={<Comprar />} />
+                            <Route path="/terms" element={<Terms />} />
+                        </Route>
 
-                {/* Rutas que no deben incluir el footer */}
-                <Route path="/stands" element={<StandsFunc />} />
-                <Route path="/perfil" element={<Perfil />} />
-                <Route path="/Login" element= {<Loginpage/>} />
-                
-            </Routes>
-        </IntlProvider>
+                        {/* Rutas que no incluyen el footer */}
+                        <Route path="/stands" element={<StandsFunc />} />
+                        
+                        {/* SOLO PERFIL está protegido */}
+                        <Route path="/perfil" element={
+                            <ProtectedRoute>
+                                <Perfil />
+                            </ProtectedRoute>
+                        } />
+                    </Routes>
+                </IntlProvider>
+            </Router>
+        </AuthProvider>
     );
 }
 

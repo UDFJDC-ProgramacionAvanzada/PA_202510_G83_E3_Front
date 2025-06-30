@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, User, Phone  } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Phone } from 'lucide-react';
 import './login.css';
 import { FormattedMessage } from 'react-intl';
-import { useNavigate } from 'react-router-dom';
-import authService from '../services/authService'; // Importar el servicio
+import { useNavigate, useLocation } from 'react-router-dom'; // Agregar useLocation
+import authService from '../services/authService'; // Solo para registro
+import { useAuth } from '../contexts/AuthContext';
 
 function LoginPage() {
     const [isLogin, setIsLogin] = useState(true);
@@ -11,13 +12,17 @@ function LoginPage() {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        name: ''
+        name: '',
+        phoneNumber: ''
     });
 
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState('');
-    const [loading, setLoading] = useState(false); // Estado de carga
+    const [loading, setLoading] = useState(false);
+    
     const navigate = useNavigate();
+    const location = useLocation(); // Agregar para obtener la página anterior
+    const { login } = useAuth(); // Usar el contexto para login
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,24 +32,26 @@ function LoginPage() {
 
         try {
             if (isLogin) {
-                // LOGIN
-                const response = await authService.login(formData.email, formData.password);
+                // LOGIN - usar el contexto en lugar de authService
+                const response = await login(formData.email, formData.password);
                 
                 if (response.success) {
                     setLoginSuccess('login.success');
                     console.log('Login exitoso:', response.user);
                     
-                    // Redirigir después de 1 segundo
+                    // Redirigir a la página anterior o a home
+                    const from = location.state?.from?.pathname || '/';
                     setTimeout(() => {
-                        navigate('/');
+                        navigate(from, { replace: true });
                     }, 1000);
                 }
             } else {
-                // REGISTRO
+                // REGISTRO - mantener usando authService directamente
                 const response = await authService.register(
                     formData.name, 
                     formData.email, 
-                    formData.password
+                    formData.password,
+                    formData.phoneNumber
                 );
                 
                 if (response.success) {
@@ -58,7 +65,8 @@ function LoginPage() {
                         setFormData({
                             email: formData.email, // Mantener el email
                             password: '',
-                            name: ''
+                            name: '',
+                            phoneNumber: ''
                         });
                     }, 2000);
                 }
@@ -202,25 +210,28 @@ function LoginPage() {
                         </button>
                     </div>
                     
-                    <div className="input-group">
-                        <div className="input-icon">
-                            <Phone  className="icon" />
+                    {/* Campo teléfono (solo en registro) */}
+                    {!isLogin && (
+                        <div className="input-group">
+                            <div className="input-icon">
+                                <Phone className="icon" />
+                            </div>
+                            <FormattedMessage id="phone.placeholder">
+                                {msg => (
+                                    <input
+                                        type="text"
+                                        name="phoneNumber"
+                                        placeholder={msg}
+                                        value={formData.phoneNumber}
+                                        onChange={handleInputChange}
+                                        className="form-input"
+                                        required={!isLogin}
+                                        disabled={loading}
+                                    />
+                                )}
+                            </FormattedMessage>
                         </div>
-                        <FormattedMessage id="phone.placeholder">
-                            {msg => (
-                                <input
-                                    type="text"
-                                    name="phoneNumber"
-                                    placeholder={msg}
-                                    value={formData.phoneNumber}
-                                    onChange={handleInputChange}
-                                    className="form-input"
-                                    required={!isLogin}
-                                    disabled={loading}
-                                />
-                            )}
-                        </FormattedMessage>
-                    </div>
+                    )}
 
                     {isLogin && (
                         <div className="forgot-password">

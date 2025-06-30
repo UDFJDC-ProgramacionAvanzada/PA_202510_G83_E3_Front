@@ -94,6 +94,32 @@
     background-color: #e55a2b;
 }
 
+.welcome-message {
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 0.9em;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+}
+
+.welcome-message:hover {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.logout-btn {
+    background-color: #e55a2b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f;
+}
+
 /* Media queries para diseño responsive */
 @media (max-width: 768px) {
     .hamburger {

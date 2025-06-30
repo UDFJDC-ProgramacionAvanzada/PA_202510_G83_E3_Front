@@ -27,7 +27,7 @@ function Vender() {
         }));
         if (showError) setShowError(false);
     };
-
+    
     const handleLogin = (e) => {
         e.preventDefault();
         if (!formData.usuario || !formData.password) {
