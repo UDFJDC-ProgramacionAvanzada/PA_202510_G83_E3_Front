@@ -1,41 +1,64 @@
 import './AnuncioStand.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
 import Navbar from '../components/Navbardef';
 import Footer from '../components/footer';
 
 const AnuncioStand = () => {
-  // Estado para controlar qué pestaña está activa: productos, comentarios, galería o mapa
   const [activeTab, setActiveTab] = useState('productos');
+  const [standData, setStandData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Datos de ejemplo de productos (se podrían cargar dinámicamente en un futuro)
-  const productos = [
-    { id: 1, nombre: 'negrita', precio: '20.000 cop', imagen: null },
-    { id: 2, nombre: 'pielita', precio: '20.000 cop', imagen: null },
-    { id: 3, nombre: 'joyfol', precio: '20.000 cop', imagen: null },
-    { id: 4, nombre: 'joyful', precio: '20.000 cop', imagen: null },
-    { id: 5, nombre: 'secreto en la montaña', precio: '35.000 cop', imagen: null }
-  ];
+  const { standId } = useParams();
 
-  // Función que devuelve el contenido según la pestaña seleccionada
+  useEffect(() => {
+    const fetchStandData = async () => {
+      if (!standId) {
+        setError('No se proporcionó un ID de stand.');
+        setLoading(false);
+        return;
+      }
+      try {
+        setLoading(true);
+        const response = await axios.get(`http://localhost:3000/api/stands/${standId}`);
+        setStandData(response.data);
+      } catch (err) {
+        setError('Error al cargar la información del stand. Por favor, intenta de nuevo más tarde.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStandData();
+  }, [standId]);
+
   const renderContent = () => {
-    switch(activeTab) {
+    switch (activeTab) {
       case 'productos':
         return (
           <div className="productos-grid">
-            {productos.map(producto => (
-              <div key={producto.id} className="producto-card">
-                <div className="producto-imagen">
-                  {/* Placeholder para imagen del producto */}
-                  <div className="imagen-placeholder">
-                    <span>Imagen</span>
+            {standData?.productos && standData.productos.length > 0 ? (
+              standData.productos.map(producto => (
+                <div key={producto.id} className="producto-card">
+                  <div className="producto-imagen">
+                    {producto.imagenUrl ? (
+                      <img src={producto.imagenUrl} alt={producto.nombre} />
+                    ) : (
+                      <div className="imagen-placeholder"><span>Imagen</span></div>
+                    )}
+                  </div>
+                  <div className="producto-info">
+                    <p className="producto-nombre">{producto.nombre}</p>
+                    <p className="producto-precio">{producto.precio}</p>
                   </div>
                 </div>
-                <div className="producto-info">
-                  <p className="producto-nombre">{producto.nombre}</p>
-                  <p className="producto-precio">{producto.precio}</p>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>Este stand aún no tiene productos registrados.</p>
+            )}
           </div>
         );
 
@@ -44,7 +67,16 @@ const AnuncioStand = () => {
           <div className="comentarios-section">
             <h3>Comentarios</h3>
             <div className="comentario-box">
-              <p>No hay comentarios disponibles.</p>
+              {standData?.comentarios && standData.comentarios.length > 0 ? (
+                standData.comentarios.map(comentario => (
+                  <div key={comentario.id} className="comentario-item">
+                    <p><strong>{comentario.usuario?.nombre || 'Anónimo'}:</strong> {comentario.texto}</p>
+                    <span>Calificación: {comentario.rating} ★</span>
+                  </div>
+                ))
+              ) : (
+                <p>No hay comentarios disponibles.</p>
+              )}
             </div>
           </div>
         );
@@ -54,14 +86,15 @@ const AnuncioStand = () => {
           <div className="galeria-section">
             <h3>Galería</h3>
             <div className="galeria-grid">
-              {[1, 2, 3, 4, 5, 6].map(i => (
-                <div key={i} className="galeria-item">
-                  {/* Placeholder para imágenes de galería */}
-                  <div className="imagen-placeholder">
-                    <span>Imagen {i}</span>
+              {standData?.galleryImagesUrls && standData.galleryImagesUrls.length > 0 ? (
+                standData.galleryImagesUrls.map((url, i) => (
+                  <div key={i} className="galeria-item">
+                    <img src={url} alt={`Imagen de galería ${i + 1}`} />
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p>No hay imágenes en la galería.</p>
+              )}
             </div>
           </div>
         );
@@ -71,16 +104,19 @@ const AnuncioStand = () => {
           <div className="mapa-section">
             <h3>Ubicación</h3>
             <div className="mapa-container">
-              {/* iframe con mapa embebido de Google Maps */}
-              <iframe
-                title="Mapa de ubicación"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.8100280741786!2d-74.11061668573392!3d4.624502643551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a45d5d9d9f7%3A0x3f0a0a0a0a0a0a0a!2sBogot%C3%A1!5e0!3m2!1ses!2sco!4v1234567890"
-                width="100%"
-                height="400"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-              ></iframe>
+              {standData?.address ? (
+                <iframe
+                  title="Mapa de ubicación"
+                  src={standData.address}
+                  width="100%"
+                  height="400"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                ></iframe>
+              ) : (
+                <p>La ubicación no está disponible.</p>
+              )}
             </div>
           </div>
         );
@@ -90,92 +126,71 @@ const AnuncioStand = () => {
     }
   };
 
+  if (loading) return <div className="centered-message">Cargando... ⏳</div>;
+  if (error) return <div className="centered-message">{error} ❌</div>;
+  if (!standData) return <div className="centered-message">No se encontró el stand.</div>;
+
   return (
     <div className="anuncio-stand-container">
-      {/* Navbar con menú principal */}
       <Navbar />
 
-      {/* Breadcrumb o ruta de navegación para orientación */}
       <div className="breadcrumb">
-        <span>inicio</span> / <span>comprar</span> / <span>Tangas la Macarena</span>
+        <span>inicio</span> / <span>comprar</span> / <span>{standData.name}</span>
       </div>
 
-      {/* Encabezado con título, categorías, universidad y rating */}
       <div className="stand-header">
-        <h1>Tangas la Macarena</h1>
+        <h1>{standData.name}</h1>
         <div className="stand-meta">
-          <span className="categoria">categorías / categorías / categorías / categorías / categorías</span>
+          <span className="categoria">
+            {standData.categorias?.map(c => c.nombre).join(' / ') || 'Sin categoría'}
+          </span>
           <span className="universidad">universidad y dresscode</span>
         </div>
         <div className="stand-rating">
-          <span className="rating">4.3 ★</span>
-          <span className="estado">cerrado - abre 11:00 am</span>
+          <span className="rating">{standData.rating} ★</span>
+          <span className="estado">{standData.schedule || 'Horario no disponible'}</span>
         </div>
       </div>
 
-      {/* Sección de imágenes principales y secundarias del stand */}
       <div className="stand-imagenes">
         <div className="imagen-principal">
-          <div className="imagen-placeholder-large">
-            <span>Imagen Principal</span>
-          </div>
+          {standData.mainImageUrl ? (
+            <img src={standData.mainImageUrl} alt="Imagen principal del stand" />
+          ) : (
+            <div className="imagen-placeholder-large"><span>Imagen Principal</span></div>
+          )}
         </div>
         <div className="imagenes-secundarias">
-          <div className="imagen-secundaria">
-            <div className="imagen-placeholder-medium">
-              <span>Imagen 2</span>
+          {standData.galleryImagesUrls?.slice(0, 2).map((url, i) => (
+            <div key={i} className="imagen-secundaria">
+              <img src={url} alt={`Imagen secundaria ${i + 1}`} />
             </div>
-          </div>
-          <div className="imagen-secundaria">
-            <div className="imagen-placeholder-medium">
-              <span>Imagen 3</span>
-            </div>
-          </div>
-          <div className="ver-galeria">
+          ))}
+          <div className="ver-galeria" onClick={() => setActiveTab('galeria')}>
             <span>Ver Galería</span>
           </div>
         </div>
       </div>
 
-      {/* Pestañas para cambiar entre secciones: productos, comentarios, galería y mapa */}
       <div className="tabs-container">
         <div className="tabs">
-          <button 
-            className={`tab ${activeTab === 'productos' ? 'active' : ''}`}
-            onClick={() => setActiveTab('productos')}
-          >
-            Productos
-          </button>
-          <button 
-            className={`tab ${activeTab === 'comentarios' ? 'active' : ''}`}
-            onClick={() => setActiveTab('comentarios')}
-          >
-            Comentarios
-          </button>
-          <button 
-            className={`tab ${activeTab === 'galeria' ? 'active' : ''}`}
-            onClick={() => setActiveTab('galeria')}
-          >
-            Galería
-          </button>
-          <button 
-            className={`tab ${activeTab === 'mapa' ? 'active' : ''}`}
-            onClick={() => setActiveTab('mapa')}
-          >
-            Mapa
-          </button>
+          {['productos', 'comentarios', 'galeria', 'mapa'].map(tabName => (
+            <button
+              key={tabName}
+              className={`tab ${activeTab === tabName ? 'active' : ''}`}
+              onClick={() => setActiveTab(tabName)}
+            >
+              {tabName.charAt(0).toUpperCase() + tabName.slice(1)}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Contenido de la pestaña seleccionada */}
       <div className="tab-content">
         {renderContent()}
       </div>
 
-      {/* Mensaje indicando que podrían seguir más productos o contenido */}
-      <div className="mensaje-productos">
-        <p>aca debe seguir si hay mas productos</p>
-      </div>
+      <Footer />
     </div>
   );
 };

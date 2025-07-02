@@ -64,6 +64,10 @@ function Navbar() {
                     <FormattedMessage id='Comprar'/>
                 </Link>
 
+                <Link to="/anuncio-stand" className="nav-item">
+                    <FormattedMessage id='Stand'/>
+                </Link>
+
                 {/* Mostrar botón de Login o Logout según el estado de autenticación */}
                 {isAuthenticated ? (
                     <button 
