@@ -23,7 +23,7 @@ function Navbar() {
     return (
         <div className="navbar1">
             {/* Logo o nombre del sitio, con enlace a la página principal */}
-            <a className="Nombre" href="http://localhost:3000">MercaU</a>
+            <a className="Nombre" href="http://localhost:3001">MercaU</a>
 
             {/* Icono de menú hamburguesa, visible solo en móviles */}
             <div className="hamburger" onClick={toggleMenu}>

@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './stands.css';
 import { ChevronDown } from 'lucide-react';
-// Importaciones para el mapa de Leaflet
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import axios from 'axios';
+
 // Fix para iconos de Leaflet en React
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -14,60 +16,62 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 let DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow,
-    iconSize: [25, 41],
+    iconSize: [20, 31],
     iconAnchor: [12, 41]
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
 function StandsFunc() {
-    // Estado para controlar la visibilidad del dropdown
+    const { user, isAuthenticated } = useAuth();
+    
+    // Estados para dropdowns
     const [isOpen1, setIsOpen1] = useState(false);
-    // Estado para la opción seleccionada en el dropdown
+    const [isOpenUniversidad, setIsOpenUniversidad] = useState(false);
     const [selectedOption, setSelectedOption] = useState('Stands Disponibles');
-    // Ref para detectar clicks fuera del dropdown y cerrarlo
+    const [selectedUniversidad, setSelectedUniversidad] = useState('Selecciona una universidad');
+    
+    // Refs para detectar clicks fuera
     const dropdown1Ref = useRef(null);
+    const dropdownUniversidadRef = useRef(null);
 
-    // Estado con los stands que se muestran en el mapa
-    const [stands, setStands] = useState([
-        {
-            id: 1,
-            lat: 4.613417952161312,
-            lng: -74.06373665455848,
-            nombre: "Stand Tangas la Macarena",
-            descripcion: "Stand mas visibles",
-            disponible: true
-        },
-        {
-            id: 2,
-            lat: 4.61334285476392,
-            lng: -74.06352782123379,
-            nombre: "Stand entrada 3",
-            descripcion: "Cerca de la cafetería",
-            disponible: false
-        },
-        {
-            id: 3,
-            lat: 4.613559033455715,
-            lng: -74.06536975603801,
-            nombre: "Stand Sede B",
-            descripcion: "en la sede B de la universidad",
-            disponible: true
-        },
-        {
-            id: 4, 
-            lat: 4.628033146013121,
-            lng: -74.06587574341755,
-            nombre: "Stand japy brownies la 40",
-            descripcion: "a 2 metros de la subida al segundo piso de la 40",
-            disponible: true
-        }
-    ]);
+    // Estados para datos
+    const [stands, setStands] = useState([]);
+    const [filteredStands, setFilteredStands] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [reserving, setReserving] = useState(false);
 
-    // Hook para detectar clicks fuera del dropdown y cerrarlo automáticamente
+    // Opciones de filtro
+    const filterOptions = [
+        "Stands Disponibles",
+        "Todos los Stands",
+        "Mis Stands"
+    ];
+
+    // Universidades disponibles
+    const universidades = [
+        "Universidad Distrital",
+        "Universidad Nacional"
+    ];
+
+    // Cargar stands al montar el componente
+    useEffect(() => {
+        loadStands();
+    }, []);
+
+    // Filtrar stands cuando cambie la opción seleccionada o universidad
+    useEffect(() => {
+        filterStands();
+    }, [selectedOption, selectedUniversidad, stands]);
+
+    // Hook para detectar clicks fuera de los dropdowns
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdown1Ref.current && !dropdown1Ref.current.contains(event.target)) {
                 setIsOpen1(false);
+            }
+            if (dropdownUniversidadRef.current && !dropdownUniversidadRef.current.contains(event.target)) {
+                setIsOpenUniversidad(false);
             }
         };
 
@@ -75,35 +79,140 @@ function StandsFunc() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Opciones de stands o universidades para el dropdown
-    const universities = [
-        "Stand entrada 3",
-        "Stand Sede B",
-        "Stand japy brownies la 40",
-        "Stand tangas la macarena",
-    ];
-
-    // Función para reservar un stand, actualizando su estado a no disponible
-    const reservarStand = (standId) => {
-        setStands(stands.map(stand => 
-            stand.id === standId 
-                ? { ...stand, disponible: false }
-                : stand
-        ));
-        alert('¡Stand reservado exitosamente!');
+    const loadStands = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get('http://localhost:3000/api/stands');
+            
+            if (response.data.success) {
+                setStands(response.data.stands);
+            }
+        } catch (error) {
+            console.error('Error cargando stands:', error);
+            setError('Error al cargar los stands');
+        } finally {
+            setLoading(false);
+        }
     };
 
+    const filterStands = () => {
+        let filtered = [...stands];
+
+        // Filtrar por tipo
+        switch (selectedOption) {
+            case 'Stands Disponibles':
+                filtered = filtered.filter(stand => stand.disponible);
+                break;
+            case 'Mis Stands':
+                if (isAuthenticated && user) {
+                    filtered = filtered.filter(stand => 
+                        stand.usuario && stand.usuario.id === user.id
+                    );
+                } else {
+                    filtered = [];
+                }
+                break;
+            default: // Todos los Stands
+                break;
+        }
+
+        // Filtrar por universidad
+        if (selectedUniversidad !== 'Selecciona una universidad') {
+            filtered = filtered.filter(stand => 
+                stand.universidad === selectedUniversidad
+            );
+        }
+
+        setFilteredStands(filtered);
+    };
+
+    const reservarStand = async (standId) => {
+        if (!isAuthenticated) {
+            alert('Debes iniciar sesión para reservar un stand');
+            return;
+        }
+
+        try {
+            setReserving(true);
+            const token = localStorage.getItem('token');
+            
+            const response = await axios.post(
+                `http://localhost:3000/api/stands/${standId}/reserve`,
+                {},
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (response.data.success) {
+                alert('¡Stand reservado exitosamente!');
+                loadStands(); // Recargar la lista de stands
+            }
+        } catch (error) {
+            console.error('Error reservando stand:', error);
+            const message = error.response?.data?.message || 'Error al reservar el stand';
+            alert(message);
+        } finally {
+            setReserving(false);
+        }
+    };
+
+    const liberarStand = async () => {
+    try {
+        setReserving(true);
+        const token = localStorage.getItem('token');
+        
+        // CAMBIA ESTA LÍNEA - USA /my-stand en lugar de /release
+        const response = await axios.delete(
+            'http://localhost:3000/api/stands/my-stand',  // ← RUTA CORREGIDA
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        );
+
+        if (response.data.success) {
+            alert('Stand liberado exitosamente');
+            loadStands(); // Recargar la lista de stands
+        }
+    } catch (error) {
+        console.error('Error liberando stand:', error);
+        const message = error.response?.data?.message || 'Error al liberar el stand';
+        alert(message);
+    } finally {
+        setReserving(false);
+    }
+};
+
+    if (loading) {
+        return (
+            <div className="stands-container">
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <p>Cargando stands...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <body className="stands-container">
+        <div className="stands-container">
             {/* Barra superior con título */}
-            <header className="navbar" >
+            <header className="navbar">
                 <h1 className="title">Stands</h1>
+                {isAuthenticated && (
+                    <div className="user-info">
+                        <span>Bienvenido, {user?.nombre}</span>
+                    </div>
+                )}
             </header>
             
             <main className="main-content">
-                {/* Sección izquierda con filtros y recomendaciones */}
+                {/* Sección izquierda con filtros */}
                 <section className="left-section">
-                    {/* Dropdown para seleccionar stand/universidad */}
+                    {/* Dropdown para filtrar stands */}
                     <div className="subtitle-container" ref={dropdown1Ref}>
                         <button onClick={() => setIsOpen1(!isOpen1)} className="subtitle">
                             <span className={selectedOption === 'Stands Disponibles' ? 'text-gray-500' : 'text-gray-800'}>
@@ -116,7 +225,7 @@ function StandsFunc() {
                         </button>
                         {isOpen1 && (
                             <div className="dropdown-menu">
-                                {universities.map((option, index) => (
+                                {filterOptions.map((option, index) => (
                                     <button
                                         key={index}
                                         className="dropdown-option"
@@ -132,33 +241,86 @@ function StandsFunc() {
                         )}
                     </div>
 
-                    {/* Input para ingresar la universidad donde está el usuario */}
+                    {/* Dropdown para seleccionar universidad */}
                     <div className="input-group">
                         <label className="input-text">En qué universidad te encuentras:</label>
-                        <input 
-                            list="universidades" 
-                            id="universidades" 
-                            type="text" 
-                            autoComplete="off" 
-                            className="input" 
-                            placeholder="Ej: Universidad de los Andes"
-                        />
+                        <div className="subtitle-container" ref={dropdownUniversidadRef}>
+                            <button 
+                                onClick={() => setIsOpenUniversidad(!isOpenUniversidad)} 
+                                className="subtitle universidad-selector"
+                            >
+                                <span className={selectedUniversidad === 'Selecciona una universidad' ? 'text-gray-500' : 'text-gray-800'}>
+                                    {selectedUniversidad}
+                                </span>
+                                <ChevronDown 
+                                    size={20} 
+                                    className={`transform transition-transform ${isOpenUniversidad ? 'rotate-180' : ''}`}
+                                />
+                            </button>
+                            {isOpenUniversidad && (
+                                <div className="dropdown-menu">
+                                    <button
+                                        className="dropdown-option"
+                                        onClick={() => {
+                                            setSelectedUniversidad('Selecciona una universidad');
+                                            setIsOpenUniversidad(false);
+                                        }}
+                                    >
+                                        Todas las universidades
+                                    </button>
+                                    {universidades.map((universidad, index) => (
+                                        <button
+                                            key={index}
+                                            className="dropdown-option"
+                                            onClick={() => {
+                                                setSelectedUniversidad(universidad);
+                                                setIsOpenUniversidad(false);
+                                            }}
+                                        >
+                                            {universidad}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                     
-                    {/* Botón para acceder al perfil del usuario */}
+                    {/* Botón para acceder al perfil */}
                     <div className="recomendaciones-perfil">
                         <Link to="/perfil" className="ver-perfil">Ver mi perfil</Link>
+                        {isAuthenticated && (
+                            <button 
+                                onClick={liberarStand}
+                                className="liberar-stand-btn"
+                                disabled={reserving}
+                            >
+                                {reserving ? 'Procesando...' : 'Liberar mi stand'}
+                            </button>
+                        )}
                     </div>
+
+                    {/* Mostrar error si existe */}
+                    {error && (
+                        <div className="error-message">
+                            {error}
+                        </div>
+                    )}
                 </section>
 
-                {/* Sección derecha con el mapa interactivo */}
+                {/* Sección derecha con el mapa */}
                 <section className="right-section">
-                    <h2>Stands disponibles en <em>Bogotá</em></h2>
+                    <h2>
+                        {selectedUniversidad === 'Selecciona una universidad' 
+                            ? 'Stands en Bogotá' 
+                            : `Stands en ${selectedUniversidad}`
+                        }
+                    </h2>
+                    <p>Mostrando {filteredStands.length} stands</p>
 
                     <div id="mapa-stands" style={{ height: '500px', width: '100%' }}>
                         <MapContainer
-                            center={[4.6097, -74.0817]} // Coordenadas centradas en la universidad
-                            zoom={17} // Nivel de zoom para ver el campus
+                            center={[4.6097, -74.0817]}
+                            zoom={15}
                             scrollWheelZoom={true}
                             style={{ height: '100%', width: '100%', borderRadius: '8px' }}
                         >
@@ -167,42 +329,68 @@ function StandsFunc() {
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
                             
-                            {/* Marcadores para cada stand */}
-                            {stands.map((stand) => (
-                                <Marker key={stand.id} position={[stand.lat, stand.lng]}>
+                            {/* Marcadores para cada stand filtrado */}
+                            {filteredStands.map((stand) => (
+                                <Marker key={stand.id} position={[stand.latitude, stand.longitude]}>
                                     <Popup>
                                         <div style={{ textAlign: 'center', minWidth: '200px' }}>
                                             <h3 style={{ margin: '0 0 10px 0', color: '#3A5BA0' }}>
-                                                {stand.nombre}
+                                                {stand.name}
                                             </h3>
+                                            <p style={{ margin: '5px 0', fontSize: '12px', color: '#666' }}>
+                                                {stand.universidad}
+                                            </p>
                                             <p style={{ margin: '5px 0' }}>
                                                 {stand.descripcion}
                                             </p>
+                                            
+                                            {/* Información del usuario si está ocupado */}
+                                            {stand.usuario && (
+                                                <div style={{ margin: '10px 0', padding: '8px', backgroundColor: '#f0f0f0', borderRadius: '4px' }}>
+                                                    <p style={{ margin: '2px 0', fontWeight: 'bold' }}>
+                                                        Ocupado por: {stand.usuario.nombre}
+                                                    </p>
+                                                    {stand.usuario.emprendimiento && (
+                                                        <p style={{ margin: '2px 0', fontSize: '12px' }}>
+                                                            {stand.usuario.emprendimiento}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            )}
+                                            
                                             <p style={{ margin: '10px 0', fontWeight: 'bold' }}>
                                                 Estado: {stand.disponible ? 
                                                     <span style={{color: '#28a745'}}>✅ Disponible</span> : 
                                                     <span style={{color: '#dc3545'}}>❌ Ocupado</span>
                                                 }
                                             </p>
-                                            {/* Botón para reservar si está disponible */}
-                                            {stand.disponible && (
+                                            
+                                            {/* Botón para reservar si está disponible y el usuario está autenticado */}
+                                            {stand.disponible && isAuthenticated && (
                                                 <button 
                                                     onClick={() => reservarStand(stand.id)}
+                                                    disabled={reserving}
                                                     style={{
                                                         backgroundColor: '#FF6B35',
                                                         color: 'white',
                                                         border: 'none',
                                                         padding: '8px 16px',
                                                         borderRadius: '4px',
-                                                        cursor: 'pointer',
+                                                        cursor: reserving ? 'not-allowed' : 'pointer',
                                                         fontSize: '14px',
-                                                        marginTop: '5px'
+                                                        marginTop: '5px',
+                                                        opacity: reserving ? 0.6 : 1
                                                     }}
-                                                    onMouseOver={(e) => e.target.style.backgroundColor = '#e55a00'}
-                                                    onMouseOut={(e) => e.target.style.backgroundColor = '#FF6B35'}
                                                 >
-                                                    Reservar Stand
+                                                    {reserving ? 'Reservando...' : 'Reservar Stand'}
                                                 </button>
+                                            )}
+                                            
+                                            {/* Mensaje si no está autenticado */}
+                                            {stand.disponible && !isAuthenticated && (
+                                                <p style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
+                                                    Inicia sesión para reservar
+                                                </p>
                                             )}
                                         </div>
                                     </Popup>
@@ -213,12 +401,12 @@ function StandsFunc() {
                 </section>
             </main>
             
-            {/* Footer con botón para regresar a la página de vender */}
+            {/* Footer */}
             <footer className='footer-stands'>
-                <Link to="/Vender" className="btn-regresar">&#8592;</Link>
+                <Link to="/vender" className="btn-regresar">&#8592;</Link>
             </footer>
-        </body>
-    )
+        </div>
+    );
 }
 
 export default StandsFunc;

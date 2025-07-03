@@ -1,7 +1,7 @@
 import './AnuncioStand.css';
 import React, { useState } from 'react';
 import Navbar from '../components/Navbardef';
-import Footer from '../components/footer';
+
 
 const AnuncioStand = () => {
   // Estado para controlar qué pestaña está activa: productos, comentarios, galería o mapa

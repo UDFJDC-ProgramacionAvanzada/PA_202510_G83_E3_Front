@@ -589,3 +589,41 @@ html, body {
         transition-duration: 0.01ms !important;
     }
 }
+
+.universidad-selector {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.liberar-stand-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.liberar-stand-btn:hover {
+    background-color: #c82333;
+}
+
+.liberar-stand-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.user-info {
+    color: white;
+    font-size: 14px;
+}
+
+.error-message {
+    background-color: #fee;
+    color: #c53030;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
